@@ -1,0 +1,9 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/navStyle.css' %}?{% now "U" %}">
+<nav class="nav">
+    <a class="nav-link" href="{% url 'profile' %}"><i class="fa-solid fa-user"></i><span>Profile</span> </a>
+    <a class="nav-link" href="{% url 'history' %}"><i class="fa-solid fa-clock-rotate-left"></i>History</a>
+    <a class="nav-link" href="{% url 'add-workout' %}"><i class="fa-solid fa-plus"></i>Workout</a>
+    <a class="nav-link" href="{% url 'exercises' %}"><i class="fa-solid fa-dumbbell"></i>Exercices</a>
+    <a class="nav-link" href="{% url 'measures' %}"><i class="fa-solid fa-ruler"></i>Measure</a>
+</nav>

@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'home/css/exercises.css' %}?{% now "date" %}">
+{% endblock head %}
+
+{% include 'navbar.html' %}
+
+{% block body %}
+    <div class="exercise-wrap">
+        <h1>Exercises</h1>
+        {% for exercise in exercises %}
+            <div class="exercise-container" data-url="{% url 'about-exercise' exercise.id %}">
+                <img src="{{ exercise.image_url }}" alt="{{exercise}} logo" height="50px" width="50px">
+                <div class="exercise-inner-container">
+                    <h4>{{exercise}}</h4>
+                    <p>{{exercise.body_part}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    <script src="{% static 'home/js/exercises.js' %}?{% now 'date' %}"></script>
+</div>
+{% endblock body %}

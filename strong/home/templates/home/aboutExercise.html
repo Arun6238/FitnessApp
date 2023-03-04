@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'home/css/aboutExercise.css' %}">
+{% endblock head %}
+
+{% block body %}
+    <div class="container">
+        {{exercise}}
+        <img src="{{exercise.image_url}}" alt="" width="400" height="400">
+        <h5>Instructions</h5>
+        {% for i in exercise.exerciseinstruction_set.all %}
+            <p>{{i.step_number}}. {{i.description}} </p>
+        {% endfor %}
+    </div>
+{% endblock body %}

@@ -1,0 +1,21 @@
+.exercise-wrap{
+    padding-left:3em;
+}
+.exercise-container{
+    display: flex;
+    gap: 2em;
+    align-items: center;
+    margin-block:1.5em ;
+
+    cursor: pointer;
+
+}
+
+.exercise-inner-container >h4{
+    /* display: flex; */
+    margin-block: 5px;
+}
+.exercise-inner-container>p{
+    color: slategray;
+    margin-top: 0;
+}

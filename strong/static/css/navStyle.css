@@ -1,0 +1,22 @@
+.nav{
+    display: flex;
+    justify-content: center;
+    gap: 3em;
+    padding-right: 1em;
+    background-color: rgb(48, 48, 48);
+    color: aliceblue;
+    margin: 0;
+    padding-top:1.5em ;
+    padding-bottom: .5em;
+}
+
+.nav-link{
+    color: aliceblue;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap:5px;
+    font-size: 17px;
+    cursor: pointer;
+}

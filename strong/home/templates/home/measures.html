@@ -1,0 +1,34 @@
+{% include 'index.html' %}
+{% load static %}
+
+{% block head %}
+    <style>
+        .container{
+            padding-inline:2em;
+        }
+        h6{
+            color:gray;
+        }
+        p{
+            font-weight:bold;
+            margin-bottom:40px;
+        }
+    </style>
+{% endblock head %}
+
+
+{% block body %}
+<div class="container">
+    <h1>Measures</h1>
+
+    <h6>CORE</h6>
+    {% for i  in core %}
+        <p>{{i}}</p>
+    {% endfor %}
+
+    <h6>BODY PART</h6>
+    {% for i in body_part %}
+        <p>{{i}}</p>
+    {% endfor %}
+</div>
+{% endblock body %}
