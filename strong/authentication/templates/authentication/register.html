@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'authentication/css/registerStyles.css' %}?{% now "DATE" %} ">
+    <script src="https://kit.fontawesome.com/162be52fef.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div class="container">
+        {% if error  %}
+            <p style="color:red" ><strong>{{ error }}!</strong></p>
+        {% endif %}
+        <form method="post" autocomplete="off">
+          <div class="circle1"></div>
+          <div class="circle2"></div>
+            <h1>Create Account</h1>
+            <h6>Sigh up!</h6>
+            {% csrf_token %}
+            <div class="form-content">
+                <i class="fa fa-id-card" ></i>
+                <label for="name">Full Name</label>
+            </div>
+            <div class="input-wrap">
+                <input  type="text" name="name" required>
+            </div>
+
+            <div class="form-content">
+                <i class="fa fa-user" ></i>
+                <label for="username" >Username</label>
+            </div>
+            <div class="input-wrap">
+              <input type="text" name="username" required>
+            </div>
+
+            <div class="form-content">
+                <i class="fa fa-envelope" ></i>
+                <label for="email">Email</label>
+            </div>
+            <div class="input-wrap">
+                <input type="email" name="email" required>
+            </div>
+
+            <div class="form-content">
+                <i class="fa fa-lock" ></i>
+                <label for="password1">Password</label>
+            </div>
+            <div class="input-wrap">
+              <input id="pass" type="password" name="password" required>
+              <i data-id="pass" class= "fas fa-eye show-password"></i>
+            </div>
+
+            <div class="form-content">
+                <i class="fa fa-lock" ></i>
+                <label for="password2">Confirm Password</label>
+            </div>
+            <div class="input-wrap">
+                <input id="conf-pass" type="password" name="password2" required>
+                <i data-id="conf-pass" class= "fas fa-eye show-password"></i>
+            </div>
+
+            <div>
+              <span>Already have an account?</span><a href="{% url 'login' %}">Sign In</a>
+            </div>
+            <div>
+                <button type="submit">Sign up</button>
+            </div>
+        </form>
+      </div>
+
+      <script>
+        showBtn = document.querySelectorAll('.show-password')
+        showBtn.forEach((btn) => {
+          btn.addEventListener('click',function(){
+            this.classList.toggle('fa-eye-slash');
+            this.classList.toggle('fa-eye')
+            id = this.getAttribute('data-id')
+            passwordInputField = document.getElementById(id)
+            if(passwordInputField.type == "password"){
+              passwordInputField.type = 'text'
+            }
+            else{
+              passwordInputField.type = "password"
+            }
+          })
+        })
+      
+      </script>
+  </body>
+</html>

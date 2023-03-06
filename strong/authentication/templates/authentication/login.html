@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'authentication/css/loginStyles.css' %}">
+  </head>
+  <body>
+    <div class="container">
+      {% if error %}
+        {{error}}
+      {% endif %}
+      <div class="card">
+        <div class="background"></div>
+        <div class="content">
+          <h1 class="title">Login Now</h1>
+          <form class="form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label class="label" for="username">Username</label>
+              <input class="input" type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+              <label class="label" for="password">Password</label>
+              <input class="input" type="password" id="password" name="password" required>
+            </div>
+            <button class="button" type="submit">Sign in</button>
+          </form>
+          <div class="footer">
+            <p class="text">Don't have an account? <a class="link" href="{% url 'register' %}">Sign up</a></p>
+            <p class="text">Forgot password? <a class="link" href="#">Reset it</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>
+
