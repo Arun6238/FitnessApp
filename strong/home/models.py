@@ -46,7 +46,7 @@ class ExerciseInstruction(models.Model):
 class MeasurementType(models.Model):
     CHOICES_NAME = [
         ("Weight","Weight"),
-        ("Height","Height"),
+        ("Caloric intake","Caloric intake"),
         ("Fat_percentage","Fat_percentage"),
 
         ("Neck","Neck"),

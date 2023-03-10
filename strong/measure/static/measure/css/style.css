@@ -1,0 +1,137 @@
+.chartCard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .chartBox {
+    padding-block:2px 10px ;
+    padding-inline:2px 10px;
+    border-radius: 4px;
+    border: solid 3px rgba(54, 162, 235, 1);
+    background: white;
+
+  }
+.canvas-container{
+    /* max-width: 700px; */
+    width:85vw;
+    overflow-x: scroll;
+}
+.canvas-body{
+    min-height: 350px;
+}
+.heading-wrap{
+    margin-block:2.5em;
+}   
+.heading-wrap,
+.table-wrap{
+    padding-inline:calc(13vw/2) ;
+}
+
+.history{
+    width:100%;
+    border-spacing: 1em;
+    margin-top: 2em;
+}
+.history th{
+    font-size: 18px;
+}
+.history td{
+    font-weight: bold;
+    font-size: 14px;
+    color: rgb(45, 41, 41);
+}
+
+
+.col-1{
+    text-align:left;
+}
+#addMeasure{
+    cursor: pointer;
+}
+.col-2{
+    text-align:right;
+}
+.form-container{
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom:0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.18);
+    transition: all .5s ; 
+}
+
+.input-form{
+    position: absolute;
+    top: 30vh;
+    left: 15px;
+    right:15px; 
+    margin-inline: auto;
+    max-width: 450px;
+    height: 150px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 4px black;
+    padding: 1em;
+    border-radius: 6px;
+}
+#datepicker{
+    border: 0;
+    background-color: inherit;
+    color: rgb(0, 194, 201);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#datepicker:focus{
+    outline: none;
+    border: none;
+}
+
+.form-row-1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-row-2{
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.form-row-2>input{
+    background-color: rgb(241, 242, 245);
+    width: 100%;
+    height: 30px;
+    border-radius: 4px;
+    border:0 ;
+}
+.form-row-2>input:focus{
+    outline: none;
+}
+.form-row-2>span{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding-block:5px ;
+    color: gray;
+}
+
+.form-row-3{
+    display: flex;
+    justify-content: end;
+    font-size: 14px;
+    gap: 2em;
+}
+.form-row-3 >*{
+
+    border: transparent;
+    background-color: inherit;
+    color: rgba(0, 194, 201);
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#labels,
+#data{
+    display: none;
+}

@@ -27,7 +27,7 @@ def measures(request):
     context = {
         'core':[
             "Weight",
-            "Height",
+            "Caloric intake",
             "Fat_percentage"
         ],
         'body_part':[

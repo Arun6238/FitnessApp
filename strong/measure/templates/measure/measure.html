@@ -1,0 +1,61 @@
+{% include 'index.html' %}
+{% load static %}
+{% block head %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{% static 'measure/css/style.css' %}?{% now "U" %}">
+{% endblock head %}
+
+{% block body %}
+    <div class="heading-wrap">
+      <h1 id="heading">{{measurementName}}</h1>
+    </div>
+    <div class="chartCard">
+      <div class="chartBox">
+        <div class="canvas-container">
+          <div class="canvas-body">
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="history">
+        <tr>
+          <th class="col-1">HISTORY</th>
+          <th class="col-2"><span onclick="show()" id="addMeasure" class="fa fa-plus"></span></th>
+        </tr>
+        {% for i in measurements %}
+        <tr>
+          <td class="col-1" >{{i.date}}</td>
+          <td class="col-2" >{{i.value}} {{i.measurement_type.unit}}</td>
+        </tr>
+      {% endfor %}
+      </table>
+    </div>
+    <div class="form-container">
+        <form class="input-form" action="" method ="POST">
+          {% csrf_token %}
+            <div class="form-row-1">
+                <h4>{{measurementName}}</h4>
+                <input required name="date" type="date" id="datepicker" >
+            </div>
+            <div class="form-row-2">
+                <input type="text" name="value" required>
+                <span>{{unit}}</span>
+            </div>
+            <div class="form-row-3">
+                <button onclick ="hide()">CANCEL</button>
+                <button type="submit">SAVE</button>
+            </div>
+      </form>
+    </div>
+    </div>
+    <p id="labels"data-labels="{{labels}}"></p>
+    <p id="data" data-data="{{data}}"></p>
+    <script>
+      {% comment %} console.log({{data}}) {% endcomment %}
+    </script>
+    <script src="{% static 'measure/js/main.js' %}?{% now "U" %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+{% endblock body %}

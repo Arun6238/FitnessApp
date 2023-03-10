@@ -23,12 +23,25 @@
 
     <h6>CORE</h6>
     {% for i  in core %}
-        <p>{{i}}</p>
+        <p class="item" data-url="{% url 'show-measures' i %}">{{i}}</p>
     {% endfor %}
 
     <h6>BODY PART</h6>
     {% for i in body_part %}
-        <p>{{i}}</p>
+        <p class="item" data-url="{% url 'show-measures' i %}">{{i}}</p>
     {% endfor %}
 </div>
+<script>
+    let items = document.querySelectorAll('.item')
+
+    items.forEach((item)=>{
+        item.style.cursor = "pointer"
+    item.addEventListener('click',function(){
+        let url = this.getAttribute('data-url')
+        console.log(url)
+        window.location.href = url;
+    })
+})
+
+</script>
 {% endblock body %}
