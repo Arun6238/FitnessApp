@@ -6,5 +6,11 @@
 {% block body %}
     <div class="container">
         <h1>Profile</h1>
+        {% if request.user.is_authenticated %}
+        <a class="" href="#"><i class="fa fa-cog"></i>Settings</a>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}" class=""><i class="fa fa-sign-out"></i>Logout</a>
+        {% endif %}
     </div>
 {% endblock body %}

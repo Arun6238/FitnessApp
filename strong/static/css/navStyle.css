@@ -1,8 +1,11 @@
 .nav{
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+
     display: flex;
-    justify-content: center;
-    gap: 3em;
-    padding-right: 1em;
+    justify-content: space-evenly;
     background-color: rgb(48, 48, 48);
     color: aliceblue;
     margin: 0;
@@ -14,9 +17,33 @@
     color: aliceblue;
     text-decoration: none;
     display: flex;
+    gap: 5px;
     flex-direction: column;
     align-items: center;
-    gap:5px;
-    font-size: 17px;
     cursor: pointer;
+
+    transition: all .3s ease-out;
+}
+.nav-link i{
+    font-size: 18px;
+    transition: all .3s ease-out;
+}
+.nav-link span{
+    font-size: 14px;
+    font-weight: bold;
+    transition: all .3s ease-out;
+}
+
+@media only screen and (min-width: 600px){
+    .nav{
+        justify-content: center;
+        gap: 3em;
+    }
+    .nav-link i{
+        font-size: 21px;
+    }
+    .nav-link span{
+        font-size: 16px;
+        font-weight: bold;
+    }
 }
