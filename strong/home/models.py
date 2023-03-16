@@ -35,6 +35,22 @@ class Exercise(models.Model):
     def __str__(self) :
         return self.name
 
+
+class WorkoutTemplate(models.Model):
+    user = models.ForeignKey(User, on_delete= models.CASCADE ,null = True, blank=True)
+    name = models.CharField(max_length=255,null = True,blank=True)
+
+    def __str__(self):
+        return str(self.id) +"."+ self.name
+    
+class WorkoutExercise(models.Model):
+    workout_template = models.ForeignKey(WorkoutTemplate, on_delete=models.CASCADE)
+    exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE)
+    sets = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.workout_template.id}-{self.workout_template.name} ({self.id})"
+
 class ExerciseInstruction(models.Model):
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE,null=True,blank=True)
     step_number = models.IntegerField(null=True,blank=True)

@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     
     'home.apps.HomeConfig',
     'authentication.apps.AuthenticationConfig',
-    'measure.apps.MeasureConfig'
+    'measure.apps.MeasureConfig',
+    'exercises.apps.ExercisesConfig',
+    'workout.apps.WorkoutConfig'
 ]
 
 MIDDLEWARE = [

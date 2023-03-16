@@ -1,0 +1,74 @@
+.container{
+    padding: 1em;
+}
+
+.container input,
+.container button{
+    width: 100%;
+    margin-bottom: 1em;
+    height: 3em;
+    border:transparent;
+    font-size: 15px;
+}
+
+.container input{
+    background-color: rgba(194, 194, 194, 0.249);
+    border-radius: 5px;
+    padding-inline: 1em;
+    width: calc(100% - 2em)
+}
+.container button{
+    color: rgb(22, 166, 255);
+    font-weight: bold;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.select-exercise-wrap{
+    padding: 1em;
+    display: none;
+
+}
+.close-add-exercises{
+    display: block;
+    margin-bottom:2em ;
+    cursor: pointer;
+}
+.select-exercise-content{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap:1em;
+    cursor: pointer;
+}
+.select-exercise-content img{
+    border-radius: 50%;
+}
+.select-exercise-content div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.select-exercise-content h4,
+.select-exercise-content h5{
+    margin: 0;
+}
+.select-exercise-content h5{
+    color: gray;
+}
+
+.exercise-select{
+    position:fixed;
+    color: white;
+    background-color:rgb(0, 146, 203) ;
+    bottom: 50px;
+    right: 20px;
+    width: 2em;
+    height: 2em;
+    font-size: 2em;
+    border-radius: 50%;
+    border: transparent;
+    cursor: pointer;
+
+    display: none;
+}

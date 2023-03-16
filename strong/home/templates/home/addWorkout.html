@@ -1,32 +1,31 @@
 {% include 'index.html' %}
 {% load static %}
-
+    
 {% block head %}
-    <style>
-        .container{
-            padding-inline:3em;
-        }
-        h6{
-            color:gray;
-        }
-        button{
-            background:rgb(35,110,160);
-            color:white;
-
-            border:transparent;
-            border-radius:4px;
-            padding-inline:1em;
-            padding-block:.8em;
-            font-weight:bold;
-
-            cursor:pointer;
-        }
-    </style>
+<link rel="stylesheet" href="{% static 'home/css/addWorkout.css' %}?{% now "d" %}">
 {% endblock head %}
 {% block body %}
     <div class="container">
         <h1>Workout</h1>
         <h6>QUICK START</h6>
         <button>START AN EMPTY WORKOUT</button>
+
+        <div class="section-2">
+            <h6>MY TEMPLATES</h6>
+            <span><a href="{% url 'new-template' %}">+</a></span>
+        </div>
+        <div class="my-templates">
+            {% for template in myTemplates  %}
+                <div class="card">
+                    <div class="card-heading">
+                        <h3>{{template.name}}</h3>
+                        <span>&#8942;</span>
+                    </div>
+                    {% for i in template.workoutexercise_set.all %}
+                            <p>{{i.sets}} &times {{i.exercise}}</p>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock body %}

@@ -16,12 +16,6 @@ def exercisePage(request):
     }
     return render(request,'home/exercises.html',context)
 
-def aboutExercise(request,id):
-    exercise = Exercise.objects.get(pk=id)
-    context = {
-        'exercise':exercise
-    }
-    return render(request,'home/aboutExercise.html',context)
 
 def measures(request):
     context = {
@@ -53,7 +47,7 @@ def measures(request):
 
 def addWorkout(request):
     context={
-
+        "myTemplates" :WorkoutTemplate.objects.filter(user= request.user)
     }
 
     return render(request,'home/addWorkout.html',context)

@@ -2,4 +2,4 @@ from django.contrib import admin
 from .models import *
 
 # Register your models here.
-admin.site.register([Exercise,ExerciseInstruction,MeasurementType,BodyMeasurement])
+admin.site.register([Exercise,ExerciseInstruction,MeasurementType,BodyMeasurement,WorkoutTemplate,WorkoutExercise])

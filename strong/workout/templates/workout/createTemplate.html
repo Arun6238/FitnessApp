@@ -1,0 +1,27 @@
+{% include 'index.html' %}
+{% load static %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'workout/css/createTemplate.css' %}?{% now "U" %}">
+{% endblock head %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="head">New Workout template</h1>
+        <form action="">
+            <input type="text" placeholder="enter template name" required>
+        </form>
+        <button id="addExercise">ADD EXERCISE</button>
+    </div>
+    <div class="select-exercise-wrap" data-url = "{% url 'new-template' %}">
+        <span class="close-add-exercises"><i class="fas fa-x"></i></span>
+        <h2>Add Exercises</h2>
+        <div class="all-exercises">
+
+        </div>
+        <button class="exercise-select"><i class="fa fa-check"></i></button>
+    </div>
+    <script src="{% static 'workout/js/main.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'workout/js/showExercises.js' %}?{% now "U" %}"></script>
+
+{% endblock body %}

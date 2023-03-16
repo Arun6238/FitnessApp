@@ -1,12 +1,11 @@
 .exercise-wrap{
-    padding-left:3em;
+    padding:1em;
 }
 .exercise-container{
     display: flex;
     gap: 2em;
     align-items: center;
     margin-block:1.5em ;
-
     cursor: pointer;
 
 }

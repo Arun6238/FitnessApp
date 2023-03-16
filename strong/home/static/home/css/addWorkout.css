@@ -1,0 +1,67 @@
+.container{
+    padding-inline:3em;
+}
+h6{
+    color:gray;
+}
+button{
+    background:rgb(35,110,160);
+    color:white;
+
+    width: 100%;
+
+    border:transparent;
+    border-radius:4px;
+    padding-inline:1em;
+    padding-block:1.2em;
+    font-weight:bold;
+
+    transition: all .3s ease-in;
+
+    cursor:pointer;
+}
+
+
+button:hover{
+    background-color: rgba(35, 110, 160, 0.9);
+}
+
+.section-2,
+.card-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items: center;
+}
+.section-2 span{
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+span  a{
+    text-decoration: none;
+}
+.card-heading h3{
+    margin-block:.5em ;
+}
+.card{
+    border: 2px slategray solid;
+    border-radius: 4px;
+    padding: 1em;
+    margin-bottom: 1em;
+}
+
+.card-heading span{
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.card p{
+    color: rgb(59, 62, 66);
+}
+
+@media only screen and (min-width:800px) {
+    button{
+        /* height: 4.5em; */
+        font-size: .9em;
+    }
+}
