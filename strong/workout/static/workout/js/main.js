@@ -7,13 +7,22 @@ function select(){
     let id = this.getAttribute("data-exercise")
     let img = this.firstElementChild
 
+    // select the exercise and add it to selected exercise object
     if (this.getAttribute("data-selected") == "false"){
         this.setAttribute("data-selected","true") 
         img.setAttribute("data-image",this.firstElementChild.src)
+        // link of tick image
         img.src = "/static/workout/img/tick.jpg"
         this.style.backgroundColor = "#7fcdfe85"
-        selectedExercise[id] = this.getAttribute("data-exercise")
+        selectedExercise[id] = [this.getAttribute("data-exercise"),this.getAttribute("data-exerciseName")]
+		selectedExercise[id] = {
+			"id":id,
+			"name":this.getAttribute("data-exerciseName"),
+			"set" :1
+		}
+			
     }
+    // unselect an exercise and remove it from selected exercise
     else{
         this.setAttribute("data-selected","false")
         img.src = this.firstElementChild.getAttribute("data-image")    
@@ -30,48 +39,93 @@ function select(){
     }
 }
 
-function getCookie(name) {
-    // function to retrieve a cookie by name
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-      const cookies = document.cookie.split(';');
-      for (let i = 0; i < cookies.length; i++) {
-        const cookie = cookies[i].trim();
-        if (cookie.substring(0, name.length + 1) === (name + '=')) {
-          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-          break;
-        }
-      }
-    }
-    return cookieValue;
-  }
+let selectedExerciseDiv = document.querySelector(".selected-exercise")
+exerciseSelect.addEventListener("click",addSelectedExercise)
 
-const csrftoken = getCookie('csrftoken');  // get the CSRF token from a cookie
-let url = document.querySelector(".select-exercise-wrap").getAttribute("data-url")
-exerciseSelect.addEventListener("click",(event) =>{
-    event.preventDefault();
-    console.log(url)
-    fetch(url,{
-        method:'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken  // include the CSRF token in the request headers
-        },
-        body:JSON.stringify(selectedExercise)
-    })
-    .then( res => {
-        console.log(res.status)
-        if(res.ok){
+function addSet(table,i){
+	selectedExercise[i]["set"] += 1
+	tr = createTableRow(selectedExercise[i]["set"])
+	table.append(tr)
+	console.log(selectedExercise)
+}
+
+
+function addSelectedExercise(){
+    {
+        // removes all the children before adding selected exercise to selectedExerciseDiv
+        selectedExerciseDiv.innerHTML = ""
+    
+        for(let i in selectedExercise){
+              let heading = document.createElement("h3")
+              heading.innerText=selectedExercise[i]["name"] //"selectedExercise[i]["name"]" is exercise name
+    
+              let table = document.createElement("table")
+              table.classList.add("selected-exercise-table")
+    
+            //   creates first row of table
+              let fisrtRow = (function(){
+                let tr = document.createElement('tr')
+                tr.append(createTh("SET"))
+                tr.append(createTh("PREVIOUS"))
+                tr.append(createTh("KG"))
+                tr.append(createTh("REPS"))
             
-            return res.json()
+                return tr
+            })()
+            
+                
+              // button to add set
+              let button  = document.createElement("button")
+              button.addEventListener('click',function(){
+                addSet(table,i)
+              })
+              button.innerHTML ="ADD SET"
+    
+    
+              table.append(fisrtRow)
+              let set = selectedExercise[i]["set"]
+              for(let i=1; i<=set;i++){
+                table.append(createTableRow(i))
+              }
+    
+              selectedExerciseDiv.append(heading)
+              selectedExerciseDiv.append(table)
+              selectedExerciseDiv.append(button)
+    
+            
         }
-        throw new Error('Network response was not ok.');
-    })
-    .then(data => {
-        document.querySelector(".head").innerHTML = data.message
-        console.log(data)
-    })
-    .catch( error => {
-        console.log(error)
-    })
-})
+        toggleAddExercise()
+    }
+}
+// This function creates and returns a new table header element with the specified text content
+function createTh(txt){
+  let th = document.createElement('th')
+  th.innerText = txt
+  return th
+}
+
+// This function creates and returns a new Table Data Cell element with the specified text content
+function createTd(txt){
+  let td = document.createElement('td')
+  td.append(txt)
+  return td
+}
+
+// this function create the first row for each selected exerxise
+function createTableRow(set){
+    let tr = document.createElement('tr')
+	let td = createTd(set) //this column display the number of set
+	td.style.color= "#0092cb"
+    tr.append(td)
+    tr.append(createTd("-"))
+
+	let inp = document.createElement("input")
+	inp.readOnly = true
+    tr.append(createTd(inp))
+
+	let inp2 = document.createElement("input")
+	inp2.readOnly = true
+    tr.append(createTd(inp2))
+	return tr
+}
+

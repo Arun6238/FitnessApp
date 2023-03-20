@@ -11,6 +11,8 @@
     margin: 0;
     padding-top:1.5em ;
     padding-bottom: .5em;
+
+    z-index: 100;
 }
 
 .nav-link{

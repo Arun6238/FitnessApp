@@ -7,6 +7,7 @@ function createExerciseList(i){
     let selectExerciseContent = document.createElement("div")
     selectExerciseContent.classList.add("select-exercise-content")
     selectExerciseContent.setAttribute("data-exercise",i.id)
+    selectExerciseContent.setAttribute("data-exerciseName",i.name)
     selectExerciseContent.setAttribute("data-selected","false")
     selectExerciseContent.addEventListener('click',select) // select funtion is defined in main.js file
 
@@ -80,7 +81,7 @@ document.querySelector("#addExercise").addEventListener('click',function(){
 })
 
 // funciton to close the add exercise page-block
-document.querySelector(".close-add-exercises").addEventListener("click",toggleAddExercise
+document.querySelector(".close-add-exercises").addEventListener("click",addSelectedExercise
 )
 
 

@@ -7,10 +7,14 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="head">New Workout template</h1>
-        <form action="">
-            <input type="text" placeholder="enter template name" required>
-        </form>
+        <div class="title">
+            <h1 class="head">New Workout template</h1>
+            <button data-url="{% url 'new-template' %}"  id="save">SAVE</button>
+        </div>
+        <input id="template-name" type="text" placeholder="enter template name">
+        <div class="selected-exercise">
+            
+        </div>
         <button id="addExercise">ADD EXERCISE</button>
     </div>
     <div class="select-exercise-wrap" data-url = "{% url 'new-template' %}">
@@ -23,5 +27,6 @@
     </div>
     <script src="{% static 'workout/js/main.js' %}?{% now "U" %}"></script>
     <script src="{% static 'workout/js/showExercises.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'workout/js/saveTemplate.js' %}?{% now "U" %}"></script>
 
 {% endblock body %}
