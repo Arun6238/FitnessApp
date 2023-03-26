@@ -1,0 +1,62 @@
+.container{
+    padding-inline: 2em;
+    padding-block: 1em;
+    position: relative;
+}
+.first-row{
+    position: relative;
+}
+#finish{
+    position: absolute;
+    top:1em;
+    right: 1em;
+
+    color: #0a82fa;
+    font-size: 16px;
+    border: transparent;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+.btn-container{
+    padding-block: .5em;
+}
+.btn-container button{
+    color: white;
+    border: transparent;
+    border-radius: 2px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    padding-block:1em;
+    cursor: pointer;
+}
+#addExercise{
+    background-color:#039534  ;
+}
+#addExercise:hover{
+    background-color: rgb(31, 127, 31);
+}
+
+#cancelWorkout{
+    background-color: red;
+}
+#cancelWorkout:hover{
+    background-color: rgba(255, 0, 0, 0.82);
+}
+
+.all-exercises{
+    position: absolute;
+    top: 76px;
+    left:0;
+    right: 0;
+    min-height: 60vh;
+    padding: 1em;
+    display: none;
+    background-color: #ffffff;
+}
+
+#close-button{
+    padding: 1em;
+    cursor: pointer;
+}

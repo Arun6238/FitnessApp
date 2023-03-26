@@ -2,8 +2,8 @@
     padding: 1em;
 }
 
-.container input,
-.container button{
+
+#addExercise{
     width: 100%;
     margin-bottom: 1em;
     height: 3em;
@@ -16,11 +16,18 @@
 }
 .title button{
     position: absolute;
+    border:transparent;
+    height: 3em;
     top: 0;
     right: 0;
     width: fit-content;
 }
-.container input{
+#template-name{
+    width: 100%;
+    margin-bottom: 1em;
+    height: 3em;
+    border:transparent;
+    font-size: 15px;
     background-color: rgba(194, 194, 194, 0.249);
     border-radius: 5px;
     padding-inline: 1em;
@@ -42,71 +49,4 @@
     display: block;
     margin-bottom:2em ;
     cursor: pointer;
-}
-.select-exercise-content{
-    display: flex;
-    align-items: center;
-    padding: 15px;
-    gap:1em;
-    cursor: pointer;
-}
-.select-exercise-content img{
-    border-radius: 50%;
-}
-.select-exercise-content div{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-.select-exercise-content h4,
-.select-exercise-content h5{
-    margin: 0;
-}
-.select-exercise-content h5{
-    color: gray;
-}
-
-.exercise-select{
-    position:fixed;
-    color: white;
-    background-color:#0092cb ;
-    bottom: 50px;
-    right: 20px;
-    width: 2em;
-    height: 2em;
-    font-size: 2em;
-    border-radius: 50%;
-    border: transparent;
-    cursor: pointer;
-
-    display: none;
-}
-
-.selected-exercise h3{
-    color:#0092cb;
-    margin-top: 2em;
-}
-
-.selected-exercise-table{
-    width: 100%;
-    border-spacing: 20px;
-}
-.selected-exercise-table td {
-    text-align: center;
-    font-weight: bold;
-}
-.selected-exercise-table th {
-    text-align: center;
-    padding-block: 1em;
-    color: slategray;
-    font-size: 15px;
-}
-.selected-exercise button{
-    color: white;
-    background-color: #0092cb;
-    padding-block:1em ;
-    margin-top: 1em;
-}
-.selected-exercise-table input{
-    max-width: 300px;
 }

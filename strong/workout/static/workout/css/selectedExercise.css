@@ -1,0 +1,94 @@
+.select-exercise-content{
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    gap:1em;
+    cursor: pointer;
+}
+.select-exercise-content img{
+    border-radius: 50%;
+}
+.select-exercise-content div{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.select-exercise-content h4,
+.select-exercise-content h5{
+    margin: 0;
+}
+.select-exercise-content h5{
+    color: gray;
+}
+
+.exercise-select{
+    position:fixed;
+    color: white;
+    background-color:#0092cb ;
+    bottom: 50px;
+    right: 20px;
+    width: 2em;
+    height: 2em;
+    font-size: 2em;
+    border-radius: 50%;
+    border: transparent;
+    cursor: pointer;
+
+    display: none;
+}
+
+.wapper-div{
+    margin-bottom: 2em;
+    border-radius: 4px;
+    padding-block: .5em;
+    background-color: #f8fdff;
+}
+.selected-exercise h3{
+    color:#0092cb;
+    margin-top: 2em;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.selected-exercise-table{
+    width: 100%;
+    border-spacing: 20px;
+}
+.selected-exercise-table td {
+    font-weight: bold;
+    text-align: left;
+}
+.selected-exercise-table th {
+    text-align: left;
+    padding-block: 1em;
+    color: slategray;
+    font-size: 14px;
+}
+.selected-exercise button{
+    color: white;
+    background-color: #0092cb;
+    width: calc(100% - 2em);
+    font-weight: 600;
+    margin-bottom: 1em;
+    border:transparent;
+    padding-block:1em ;
+    margin-top: 2em;
+    margin-inline:1em;
+}
+.selected-exercise-table button,
+.selected-exercise-table input{
+    max-width: 300px;
+    text-align: center;
+    width: 100%;
+    color: black;
+    background-color: rgba(194, 194, 194, 0.249);
+    border-radius: 4px;
+    height: 3em;
+    border:transparent;
+    font-size: 15px;
+}
+.selected-exercise-table button{
+    margin: 0;
+    min-width: 30px;
+    font-weight: bold;
+}

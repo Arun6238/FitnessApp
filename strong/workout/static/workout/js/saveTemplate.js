@@ -8,7 +8,7 @@ function redirectUrl(a){
 
 input.addEventListener('input', () => {
     const value = input.value;
-    const pattern = /^[^\s]+(\s+[^\s]+)*$/; // regex pattern to allow only non-empty spaces
+    const pattern = /^[\S\s]*\S[\S\s]*$/; // regex pattern to allow only non-empty spaces
 
     if (!pattern.test(value)) {
       input.value = value.trim(); // remove empty spaces at the beginning of the input
