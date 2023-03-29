@@ -1,21 +1,21 @@
 {% include 'index.html' %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'workout/css/startEmptyWorkout.css' %}?{% now "U" %}">
     <link rel="stylesheet" href="{% static 'workout/css/selectedExercise.css' %}?{% now "U" %}">
+    <link rel="stylesheet" href="{% static 'workout/css/startEmptyWorkout.css' %}?{% now "U" %}">
 {% endblock head %}
 {% block body %}
     <div class="container">
         <div class="first-row">
             <h1>Workout Name</h1>
-            <button id="finish">FINISH</button>
+            <button id="finish" >FINISH</button>
             <p id="time" data-time="{{start_time}}">00:00:00</p>
             <div class="selected-exercise">
                 {% if WorkoutSession.workoutsessionexercise_set.all %}
                     {% for i in WorkoutSession.workoutsessionexercise_set.all %}
                         <div class="wapper-div">
                             <h3>{{i.exercise}}</h3>
-                            <table class="selected-exercise-table">
+                            <table data-exercise-session="{{i.id}}" data-url="{% url 'save_workout_session_exercise_Set' %}" class="selected-exercise-table">
                                 <tr>
                                     <th>SET</th>
                                     <th>PREVIOUS</th>
@@ -23,17 +23,28 @@
                                     <th>REPS</th>
                                 </tr>
                                 {% for j in i.set_set.all %}
-                                <tr>
-                                    <td style="color: rgb(0, 146, 203);">{{j.set_number}}</td>
-                                    <td>-</td>
-                                    <td><input class="selected-exercise-input" name="weight" value="{{j.weight}}"></td>
-                                    <td><input class="selected-exercise-input" name="reps" value="{{j.reps}}"></td>
-                                    <td><button><i class="fa fa-check" aria-hidden="true"></i></button>
-                                    </td>
-                                </tr>
+                                    {% if j.weight is not None and j.reps is not None %}
+                                        <tr class="saved-row" data-exercise-session="{{j.exercise_session.id}}">
+                                            <td style="color: rgb(0, 146, 203);">{{j.set_number}}</td>
+                                            <td>-</td>
+                                            <td><input class="selected-exercise-input" data-init-value="{{j.weight}}" name="weight" value="{{j.weight}}" ></td>
+                                            <td><input class="selected-exercise-input" data-init-value="{{j.reps}}" name="reps" value="{{j.reps}}"></td>
+                                            <td><button  class="save-row-button saved-btn"><i class="fa fa-check" aria-hidden="true"></i></button></td>
+                                        </tr>
+                                    {% else %}
+                                        <tr class="un-saved" data-exercise-session="{{j.exercise_session.id}}" >
+                                            <td style="color: rgb(0, 146, 203);">{{j.set_number}}</td>
+                                            <td>-</td>
+                                            <td><input class="selected-exercise-input" data-init-value="" name="weight" ></td>
+                                            <td><input class="selected-exercise-input" data-init-value="" name="reps" ></td>
+                                            <td><button class="save-row-button"><i class="fa fa-check" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 {% endfor %}
                             </table>
-                            <button>ADD SET</button></div>
+                            <button class="add-set">ADD SET</button>
+                        </div>
                     {% endfor %}
                 {% endif %}
             </div>
@@ -42,13 +53,23 @@
             <button id="addExercise">ADD EXERCISE</button>
         </div>
         <div class="btn-container">
-            <button id="cancelWorkout">CANCEL WORKOUT</button>
+            <a id="cancelWorkout" href="{% url 'cancel-workout' WorkoutSession.id %}">CANCEL WORKOUT</a>
         </div>
     </div>
     <div class="all-exercises">
         <div id="close-button"><i class="fas fa-x"></i></div>
         <h2>Add exercises</h2>
-        <button data-url="{% url 'add_workout_session_exercise' %}" data-redirecturl="{% url 'start-empty-workout' %}" class="exercise-select"><i class="fa fa-check"></i></button>
+        <button data-url="{% url 'add_workout_session_exercise' %}" data-redirecturl="{% url 'start-empty-workout' %}" class="exercise-select" data-workout-session-id="{{WorkoutSession.id}}"><i class="fa fa-check"></i></button>
+    </div>
+    <div class="confirmation">
+        <div class="wrapper">
+            <h3>Are you finished</h3>
+            <p>All the unsaved sets will be discarded.All the unsaved updates will be replaced with previous data</p>
+            <div>
+                <button id="cancel-confirmation-button">Cancel</button>
+                <button data-workout-session-id="{{WorkoutSession.id}}" id="confirm-button">Finish Workout</button>
+            </div>
+        </div>
     </div>
     <script src="{% static 'workout/js/startEmptyWorkout.js' %}?{% now "U" %}"></script>
 {% endblock body %}

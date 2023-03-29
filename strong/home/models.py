@@ -111,12 +111,15 @@ class WorkoutExercise(models.Model):
 class WorkoutSession(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     name = models.CharField(max_length=255,null=True,blank=True)
-    started_at = models.DateTimeField()
+    started_at = models.DateTimeField(auto_now_add= True)
     duration = models.CharField(max_length=200,blank=True,null=True)
     finished = models.BooleanField(default=False)
 
 
     def __str__(self):
+        if self.name == None:
+            return "no name"
+        
         return self.name
 
 class WorkoutSessionExercise(models.Model):
@@ -124,7 +127,7 @@ class WorkoutSessionExercise(models.Model):
     exercise = models.ForeignKey(Exercise,on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.workout_session.id} + {self.workout_session.name} + ({self.id})"
+        return f"{self.workout_session.id} {self.workout_session.name} - ({self.exercise.name})"
 
 class Set(models.Model):
     exercise_session = models.ForeignKey(WorkoutSessionExercise, on_delete=models.CASCADE)
@@ -133,4 +136,7 @@ class Set(models.Model):
     reps = models.PositiveIntegerField(null=True,blank=True)
 
     def __str__(self):
-        return f"Set {self.set_number} - {self.weight} lbs x {self.reps}"
+        return f"Set {self.set_number} - {self.exercise_session}"
+
+    class Meta:
+        unique_together = ('exercise_session','set_number') 

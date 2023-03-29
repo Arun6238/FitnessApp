@@ -48,16 +48,15 @@ saveButton.addEventListener("click",function(){
             },
             body:JSON.stringify(data)
             })
-            .then( res => {
-                console.log(res.status)
-                if(res.ok){
-                    window.location.href = "/workouts"
-                }
-                else{
-                    throw new Error('Network response was not ok.')
-                }
+            .then( res => res.json())
+            .then(data =>{
+              if(data.status == 'error'){
+                  alert(data.message)
+              }
+              else if(data.status == 'success'){
+                window.location.href = "/workouts"
+              }
             })
-
             .catch( error => {
                 console.log(error)
             })
@@ -65,6 +64,8 @@ saveButton.addEventListener("click",function(){
     else{
         if(templateName.length == 0)
             alert("Enter a Template name")
+        else if(Object.keys(selectedExercise).length == 0)
+            alert("Add atleast one exercise")
     }
 })
 

@@ -21,6 +21,7 @@
 .btn-container{
     padding-block: .5em;
 }
+.btn-container a,
 .btn-container button{
     color: white;
     border: transparent;
@@ -30,6 +31,7 @@
     font-weight: 600;
     padding-block:1em;
     cursor: pointer;
+    text-decoration: none;
 }
 #addExercise{
     background-color:#039534  ;
@@ -39,7 +41,9 @@
 }
 
 #cancelWorkout{
+    display: inline-block;
     background-color: red;
+    text-align: center;
 }
 #cancelWorkout:hover{
     background-color: rgba(255, 0, 0, 0.82);
@@ -58,5 +62,45 @@
 
 #close-button{
     padding: 1em;
+    cursor: pointer;
+}
+.saved-row{
+    background-color: #75ffa3a1;
+}
+.update-row{
+    background-color:#cbff5ba1 !important;
+}
+
+.confirmation{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+}
+.confirmation .wrapper{
+    padding-block: .5em;
+    padding-inline: 1em;
+    border-radius: 4px;
+    max-width: 400px;
+    min-width: 300px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    height: fit-content;
+    margin-top: 30vh;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px black;
+}
+.confirmation button{
+    background-color: inherit;
+    color: #0a82fa;
+    margin-right: 1em;
+    font-size: 15px;
+    border: transparent;
+    font-weight: bold;
+    margin-bottom: .8em;
     cursor: pointer;
 }

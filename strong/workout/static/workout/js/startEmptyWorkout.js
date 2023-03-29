@@ -151,15 +151,19 @@ const showExercise = {
 
 showExercise.showExerciseHandler()
 
-// function to ensure  and inputfiled only accept positive integers
+// function to ensure  an inputfiled only accept positive integers
 let selectExerciseInput = document.querySelectorAll(".selected-exercise-input")
 selectExerciseInput.forEach((inp) => {
-	inp.addEventListener('input',validateInputField)
+	inp.addEventListener('input',function(){
+		validateInputField.bind(this)()
+		handleInputFieldChange.bind(this)()
+	
+	})
 })
 function validateInputField(){
 		let value = this.value;
 		// Remove any non-digit characters from the input
-		value = value.replace(/\D/g, "");
+		value = value.replace(/[^0-9.]/g, "");
 		
 		// Ensure that the input is not empty and is a positive integer
 		if (value !== "" && parseInt(value) >= 0) {
@@ -168,7 +172,57 @@ function validateInputField(){
 		  this.value = "";
 		}
 }
+// check  for updates each rows input fields
+window.onload = function(){
+	const trs = document.querySelectorAll('.saved-row')
+	trs.forEach(tr =>{
+		let tds = tr.querySelectorAll('td')
+		let inp1 = tds[2].querySelector('input')
+		let inp2 = tds[3].querySelector('input')
+		let button = tds[4].querySelector('button')
 
+		if(Number(inp1.value) != Number(inp1.getAttribute('data-init-value')) ||
+		Number(inp2.value) != Number(inp2.getAttribute('data-init-value'))){
+			tr.classList.add('update-row')// background color for this class is set as !important in css
+			tr.classList.add('un-saved')// background color for this class is set as !important in css
+			button.classList.add('update-btn')
+		}
+		else{
+			tr.classList.remove('update-row')
+			tr.classList.remove('un-saved')
+			button.classList.remove('update-btn')
+			
+		}
+	})
+}
+function handleInputFieldChange(){
+	let tr = this.closest('tr')
+	let td = tr.querySelectorAll('td')
+	let button = td[4].querySelector('button')
+	let inp2  = td[2].querySelector('input')
+	// check if the input that called this funciton and inp2 are same
+	if( inp2 == this){
+		// if both are same assign new value to inp2
+		inp2 = td[3].querySelector('input')
+	}
+
+	if(tr.classList.contains('saved-row')){
+		// check if any of the input's value changed
+		if(Number(this.value) != Number(this.getAttribute('data-init-value')) || Number(inp2.value) != Number(inp2.getAttribute('data-init-value'))){
+			tr.classList.add('update-row')// background color for this class is set as !important in css
+			tr.classList.add('un-saved')// background color for this class is set as !important in css
+			button.classList.add('update-btn')
+		}
+		else{
+			tr.classList.remove('update-row')
+			tr.classList.remove('un-saved')
+			button.classList.remove('update-btn')
+			
+		}
+	}
+}
+
+// function to return csrf token
 function getCookie(name) {
     // function to retrieve a cookie by name
     let cookieValue = null;
@@ -189,11 +243,12 @@ const csrftoken = getCookie('csrftoken');
 
 let selectExerciseButton = document.querySelector(".exercise-select")
 let redirectUrl = selectExerciseButton.getAttribute("data-redirecturl") // url to redirect after saving selected exercise
+// function to save selected exercise
 selectExerciseButton.addEventListener("click",function(){
 	let url = this.getAttribute("data-url")
 	let data = {
 		exercises:showExercise.selectedExercise,
-		workoutSessionId:1
+		workoutSessionId:this.getAttribute('data-workout-session-id')
 	}
 	let options = {
 		method:'POST',
@@ -205,9 +260,198 @@ selectExerciseButton.addEventListener("click",function(){
 	}
 
 	fetch(url,options)
-	.then(res =>{
-		if(res.ok)
+	.then(res =>res.json())
+	.then(data =>{
+		if(data.status == "error"){
+			alert(data.message)
+		}
+		else if(data.status == "success"){
 			window.location.href = redirectUrl
+		}
 	})
 	.catch(error => console.error(error))
 })
+
+// funciton to save each sets to database
+let saveRowButton = document.querySelectorAll(".save-row-button")
+saveRowButton.forEach(btn =>{
+	btn.addEventListener("click",clickFuncion)
+})
+function clickFuncion(){
+	const tr = this.closest('tr');
+	const tds = tr.querySelectorAll('td')
+	const weightInput = tds[2].querySelector('input')
+	const repsInput = tds[3].querySelector('input')
+	const btn = tds[4].querySelector('button')
+	if(weightInput.value !=="" && repsInput.value !== ""){
+		if(Number(weightInput.getAttribute("data-init-value")) == Number(weightInput.value) && Number(repsInput.getAttribute("data-init-value")) == Number(repsInput.value)){
+			console.log("no change detected")
+		}
+		else{
+			const set = {
+				exercise_session:tr.closest('table').getAttribute("data-exercise-session"),
+				set_number:tds[0].textContent,
+				weight:weightInput.value,
+				reps: repsInput.value
+			}	
+			const url = tr.closest('table').getAttribute("data-url")
+			const options = {
+				method:'POST',
+				headers:{
+					'Content-Type':'Application/json',
+					'x-CSRFToken':csrftoken
+				},
+				body:JSON.stringify(set)
+			}
+			fetch(url,options)
+			.then(res => res.json())
+			.then (data => {
+				if(data.status == 'success'){
+					console.log("working fine")
+					weightInput.setAttribute("data-init-value",set.weight)
+					repsInput.setAttribute("data-init-value",set.reps)
+					tr.classList.add('saved-row')
+					if(tr.classList.contains('update-row')){
+						tr.classList.remove('update-row')
+					}
+					if(btn.classList.contains('update-btn')){
+						btn.classList.remove('update-btn')
+					}
+					btn.classList.add('saved-btn')
+				}
+				else{
+					console.log(`${data.status} : ${data.message}`)
+				}
+			})
+			.catch(error => console.log(error))
+		}
+	}
+	else{
+		alert("Enter weight and Reps")
+	}
+
+}
+// selected-exercise-input
+
+// function to add set to each exercises
+const addSetButton  = document.querySelectorAll('.add-set')
+addSetButton.forEach(btn => {
+	btn.addEventListener("click",function(){
+		let table = null;
+		let prevSibling = this.previousSibling;
+		while(prevSibling){
+			if(prevSibling.nodeName === "TABLE"){
+				table = prevSibling
+				break
+			}
+			prevSibling = prevSibling.previousSibling
+		}
+		const lastRow = table.rows[table.rows.length - 1]
+		if(lastRow.classList.contains('saved-row')){
+
+			let setNo = Number(lastRow.querySelector('td').textContent) //content of first column as a number
+			let data = {
+				exercise_session:table.getAttribute("data-exercise-session"),
+				set: setNo+1,
+			}
+
+			const newRow = document.createElement('tr');
+
+			let button = document.createElement("button")
+			button.innerHTML = "<i class='fa fa-check' aria-hidden='true'></i>"
+			button.classList.add('save-row-button')
+
+			// adding click funtion to this button
+			button.addEventListener("click",clickFuncion)
+			// first td of each row
+			let td = createTd(setNo+1)
+			td.style.color="#0092cb"
+			// class un-saved is used to identify the unsaved row
+			newRow.classList.add('un-saved')
+			newRow.append(td)
+			newRow.append(createTd("-"))
+			newRow.append(createTd(createInput("weight")))
+			newRow.append(createTd(createInput("reps")))
+			newRow.append(createTd(button))
+			table.append(newRow)
+
+			console.log(data)
+		}
+		else{
+			alert("please complete or save the previous set before adding new one")
+		}
+	})
+})
+// only used by funtion to add set
+function createTd(txt){
+	let td = document.createElement('td')
+	td.append(txt)
+	return td
+  }
+
+// only used by funtion to add set
+function createInput(name){
+	let inp = document.createElement("input")
+	inp.classList.add("selected-exercise-input")
+	inp.setAttribute("data-init-value","")
+	inp.setAttribute("name",name)
+	inp.addEventListener('input',function(){
+		validateInputField.bind(this)()
+		handleInputFieldChange.bind(this)()
+	
+	})
+	return inp
+}
+
+// function to finish workout
+const finishButton = document.querySelector("#finish")
+const conformation = document.querySelector('.confirmation')
+finishButton.addEventListener('click',function(){
+	conformation.style.display= "block"
+})
+
+function finishWorkoutSession(){
+		const data = {
+			workout_session_id:this.getAttribute('data-workout-session-id')
+		}
+		console.log(data)
+		const url = '/workout/finish-workout-session' // finish workout view function url 
+		console.log(url)
+		const options = {
+			method:'POST',
+			headers:{
+				'Content-Type':'Application/json',
+				'x-CSRFToken':csrftoken
+			},
+			body:JSON.stringify(data)
+		}
+		fetch(url,options)
+		.then(res => res.json())
+		.then(data => {
+			if(data.status == 'success'){
+				alert(data.message)
+				window.location.href= "/workouts"
+			}
+			else{
+				console.log(`${data.error}: ${data.message}`)
+			}
+		})
+}
+// hide conformation block
+document.querySelector("#cancel-confirmation-button").addEventListener('click',function(){
+	conformation.style.display= "none"
+})
+
+document.querySelector("#confirm-button").addEventListener('click',finishWorkoutSession)
+// // function to retrive each rows data as a object eg: { exercise_session: "1", set_number: "4", weight: "10", reps: "11" }
+// function getSetData(obj){
+// 	const tds = obj.querySelectorAll('td')
+// 	let setData = {
+// 		exercise_session:obj.closest('table').getAttribute("data-exercise-session"),
+// 		set_number:tds[0].textContent,
+// 		weight:tds[2].querySelector('input').value,
+// 		reps:tds[3].querySelector('input').value
+// 	}
+// 	return setData
+	
+// }
