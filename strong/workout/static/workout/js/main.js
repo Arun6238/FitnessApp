@@ -46,7 +46,6 @@ function addSet(table,i){
 	selectedExercise[i]["set"] += 1
 	tr = createTableRow(selectedExercise[i]["set"])
 	table.append(tr)
-	console.log(selectedExercise)
 }
 
 
