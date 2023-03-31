@@ -80,6 +80,7 @@ function addSelectedExercise(){
                 addSet(table,i)
               })
               button.innerHTML ="ADD SET"
+              button.classList.add('add-set')
     
     
               table.append(fisrtRow)
@@ -120,11 +121,13 @@ function createTableRow(set){
     tr.append(createTd("-"))
 
 	let inp = document.createElement("input")
+  inp.classList.add("selected-exercise-input")
 	inp.readOnly = true
     tr.append(createTd(inp))
 
 	let inp2 = document.createElement("input")
 	inp2.readOnly = true
+  inp2.classList.add("selected-exercise-input")
     tr.append(createTd(inp2))
 	return tr
 }

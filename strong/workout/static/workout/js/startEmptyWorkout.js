@@ -319,6 +319,9 @@ function clickFuncion(){
 					}
 					btn.classList.add('saved-btn')
 				}
+				else if(data.status == 'warning'){
+					alert(data.message)
+				}
 				else{
 					console.log(`${data.status} : ${data.message}`)
 				}

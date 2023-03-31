@@ -8,14 +8,19 @@
 }
 #finish{
     position: absolute;
-    top:1em;
+    top:0;
     right: 1em;
 
-    color: #0a82fa;
-    font-size: 16px;
+    background-color: #039534;
+    padding:.5em 1em ;
+    border-radius: 2px;
+    color: #fefefe;
+    font-size: 15px;
     border: transparent;
-    background-color: inherit;
     cursor: pointer;
+}
+#finish:active{
+    background-color: #05bd42;
 }
 
 .btn-container{

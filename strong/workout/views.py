@@ -8,12 +8,21 @@ from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 
+from django.core.exceptions import ObjectDoesNotExist
+
 # function to generate standard response format
-def get_response_dict(status,message):
+def get_response_dict(status,message,data=None):
     return {
         'status':status,
-        'message':message
+        'message':message,
+        'data':data
     }
+# Funcition to check wether a workout session is live 
+def is_workout_session_in_progress(request):
+    if WorkoutSession.objects.filter(user= request.user,finished= False).exists():
+        return True
+    else:
+        return False
 
 # creates a new workout template
 @transaction.atomic()
@@ -49,6 +58,7 @@ def newTemplate(request):
         return JsonResponse(get_response_dict('success','New template created succeffully..'))
     # if request.method not post renders the page to create new workout template
     return render(request,"workout/createTemplate.html")
+
 
 # returns a list of all exercise in Exercise model
 def showAllExercises(request):
@@ -131,6 +141,13 @@ def save_workout_session_exercise_Set(request):
     try:
         # checks if the given set is already in database
         if Set.objects.filter(set_number = set_no,exercise_session = workout_session_exercise).exists():
+        #  check if set it is the first set
+            if set_no>1:
+                previous_set  = Set.objects.get(set_number = set_no-1,exercise_session = workout_session_exercise)
+                print(f"weight :{previous_set.weight}")
+                print(f"weight :{previous_set.reps}")
+                if (previous_set.weight == None or previous_set.weight == 0 ) and (previous_set.reps == None or previous_set.reps == 0):
+                    return JsonResponse(get_response_dict('warning','Please save the previous set'))
             new_set = Set.objects.get(set_number = set_no,exercise_session = workout_session_exercise) 
             # if both are valid data update the database with new value
             new_set.weight = data['weight']
@@ -138,6 +155,11 @@ def save_workout_session_exercise_Set(request):
             new_set.save()
             # checks if previous set is saved in data base
         elif (Set.objects.filter(set_number = set_no-1,exercise_session = workout_session_exercise).exists()):
+            previous_set  = Set.objects.get(set_number = set_no-1,exercise_session = workout_session_exercise)
+            print(f"weight :{previous_set.weight}")
+            print(f"weight :{previous_set.reps}")
+            if (previous_set.weight == None or previous_set.weight == 0 ) and (previous_set.reps == None or previous_set.reps == 0):
+                return JsonResponse(get_response_dict('warning','Please save the previous set'))
             new_set = Set.objects.create(
                 exercise_session= workout_session_exercise,
                 set_number= set_no,
@@ -190,5 +212,71 @@ def cancel_workout(request,id):
         workout_session.delete()
     except:
         print("could not cancel the workout")
+        return JsonResponse(get_response_dict('error','could not cancel the workout'))
 
     return redirect('workouts')
+
+@transaction.atomic()
+def select_template_as_workout(request,id):
+    if is_workout_session_in_progress(request):
+        id = WorkoutSession.objects.get(user= request.user,finished= False).id
+        return JsonResponse(get_response_dict('warning','A workout session is already in progress',{"id":id}))
+    else:
+        try:
+            template = WorkoutTemplate.objects.get(pk= id)
+            template_exercise = WorkoutExercise.objects.filter( 
+                workout_template =template
+            )
+        except Exception as e:
+            return JsonResponse(get_response_dict('error','template not found..'))
+        try:
+            workout_session = WorkoutSession.objects.create(
+                user= template.user,
+                name= template.name,
+                finished= False
+            )
+            for exercise in template_exercise:
+                workout_session_exercise= WorkoutSessionExercise()
+                workout_session_exercise.workout_session= workout_session
+                workout_session_exercise.exercise= exercise.exercise
+                
+                workout_session_exercise.save()
+                
+                for i in range(int(exercise.sets)):
+                    set = Set()
+                    set.exercise_session= workout_session_exercise
+                    set.set_number = i+1
+                    set.save()
+
+        except Exception as e:
+            print(e)
+            return JsonResponse(get_response_dict('error','could not create a workout session'))
+    return JsonResponse(get_response_dict('success','workout session created successfully..'))
+
+def delete_template(request,id):
+    try:
+        template = WorkoutTemplate.objects.get(pk =id)
+        template.delete()
+    except ObjectDoesNotExist:
+        return JsonResponse(get_response_dict('warning','Template not found'))
+    except Exception as e:
+        return JsonResponse(get_response_dict('error',f'some error occured : {e}'))
+    
+    return JsonResponse(get_response_dict('success','Template removed successfully'))
+
+def rename_template(request,id,name):
+    try:
+        template = WorkoutTemplate.objects.get(pk =id)
+
+        if template.name == name:
+            return JsonResponse(get_response_dict('warning','Template rename was not performed because the new name is the same as the old name.'))
+        else:
+            template.name = name;
+            template.save()
+
+            return JsonResponse(get_response_dict('success','successfully update the name'))
+    except ObjectDoesNotExist:
+            return JsonResponse(get_response_dict('warning','Template not found'))
+    except Exception as e:
+                return JsonResponse(get_response_dict('error',f'some error occured {e}'))
+    

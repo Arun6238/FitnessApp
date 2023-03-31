@@ -7,9 +7,11 @@
 {% block body %}
     <div class="container">
         <div class="first-row">
-            <h1>Workout Name</h1>
-            <button id="finish" >FINISH</button>
-            <p id="time" data-time="{{start_time}}">00:00:00</p>
+            <h1>{{WorkoutSession.name}}</h1>
+            <div style="position: relative;margin-bottom:2em;">
+                <p id="time" data-time="{{start_time}}">00:00:00</p>
+                <button id="finish" >FINISH</button>
+            </div>
             <div class="selected-exercise">
                 {% if WorkoutSession.workoutsessionexercise_set.all %}
                     {% for i in WorkoutSession.workoutsessionexercise_set.all %}

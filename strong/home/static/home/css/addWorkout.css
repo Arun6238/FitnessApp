@@ -47,8 +47,19 @@ span  a{
     border: 2px slategray solid;
     border-radius: 4px;
     padding: 1em;
+    padding-right:40px ;
     margin-bottom: 1em;
+    cursor: pointer;
+    position: relative;
 }
+
+.card:hover{
+    background-color: rgba(0, 0, 0, 0.037);
+}
+  
+  .card:active{
+    background-color: rgba(19, 18, 18, 0.336);
+  }
 
 .card-heading span{
     font-size: 25px;
@@ -64,4 +75,114 @@ span  a{
         /* height: 4.5em; */
         font-size: .9em;
     }
+}
+
+.confirmation{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.confirmation .wrapper{
+    padding-block: .5em;
+    padding-inline: 1em;
+    border-radius: 10px;
+    max-width: 400px;
+    min-width: 300px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    height: fit-content;
+    margin-top: 30vh;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px black;
+}
+#rename-template button,
+.confirmation button{
+    background-color: inherit;
+    width: fit-content;
+    color: #0a82fa;
+    margin-right: 1em;
+    font-size: 14px;
+    border: transparent;
+    font-weight: 600;
+    margin-bottom: .5em;
+    cursor: pointer;
+}
+.drop{
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    font-size: 24px;
+    font-weight: bold;
+    padding:.5em 1em;
+    text-align: center;
+
+}
+.drop:hover{
+    background-color: #c2c2c26d;
+    border-radius: 5px;
+}
+.drop:active{
+    background-color: #81818198;
+}
+#cover-all{
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.105);
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    z-index: 1000;
+    display: none;
+}
+.options{
+    z-index: 2;
+    right:40px;
+    top: 10px;
+    position: absolute;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    padding: .5em 1.5em;
+    border-radius: 4px;
+    z-index: 1001;
+    display: none;
+    padding-block: 1.5em .5em;
+}
+
+.options li{
+    list-style: none;
+    margin-bottom: 1.2em;
+    font-size: 15px;
+    cursor: pointer;
+}
+.options li:hover{
+    color: rgb(255, 255, 144);
+}
+
+#rename-template{
+    display: none;
+    position: fixed;
+    top: 30vh;
+    left: 50%;
+    width: 275px;
+    transform: translateX(-50%);
+    background-color: white;
+    padding:1em;
+    box-shadow: 0 0 5px black;
+    z-index: 1002;
+
+}
+#rename-template input{
+    width: calc(100% - 1em);
+    border: 0;
+    border-radius: 4px;
+    background-color: #dacccc98;
+    font-size: 15px;
+    padding: .5em;
 }

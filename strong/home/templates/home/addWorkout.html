@@ -2,7 +2,7 @@
 {% load static %}
     
 {% block head %}
-<link rel="stylesheet" href="{% static 'home/css/addWorkout.css' %}?{% now "d" %}">
+<link rel="stylesheet" href="{% static 'home/css/addWorkout.css' %}?{% now "U" %}">
 {% endblock head %}
 {% block body %}
     <div class="container">
@@ -15,23 +15,46 @@
             <span><a href="{% url 'new-template' %}">+</a></span>
         </div>
         <div class="my-templates">
+            <div id="cover-all"></div>
             {% for template in myTemplates  %}
-                <div class="card">
+            <div class="my-template-content" style="position: relative">
+                {% comment %} keep this span with class="drop" just before ul with class options {% endcomment %}
+                <span class="drop">&#8942;</span>
+                <ul class="options" data-template-id="{{template.id}}">
+                    {% comment %} dont change this order of li elements inorder to the app to function properly{% endcomment %}
+                      <li>Edit</li>
+                      <li>Rename</li>
+                      <li>Delete</li>
+                </ul>
+                <div data-template-id="{{template.id}}" class="card">
                     <div class="card-heading">
-                        <h3>{{template.name}}</h3>
-                        <span>&#8942;</span>
+                        <h3 id="i{{template.id}}">{{template.name}}</h3>
                     </div>
                     {% for i in template.workoutexercise_set.all %}
                             <p>{{i.sets}} &times {{i.exercise}}</p>
                     {% endfor %}
                 </div>
+            </div>
             {% endfor %}
         </div>
     </div>
-    <script>
-        let button = document.querySelector("#start-empty-workout")
-        button.addEventListener('click',function(){
-            window.location.href = this.getAttribute('data-url')
-        })
-    </script>
+    <div id="rename-template">
+            <h3>Rename Template</h3>
+            <input placeholder="Choose a new name" type="text" id="rename-template-input">
+            <div>
+                <button onclick ="hideRenameTab()" id="cancel-rename-template">Cancel</button>
+                <button id="confirm-rename-template">Rename</button>
+            </div>
+    </div>
+    <div class="confirmation">
+        <div class="wrapper">
+            <h3 id="confirmation-heading"></h3>
+            <p id="confirmation-para"></p>
+            <div>
+                <button id="cancel-confirmation-button">Cancel</button>
+                <button id="confirm-button"></button>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'home/js/addWorkout.js' %}?{% now "U" %}"></script>
 {% endblock body %}

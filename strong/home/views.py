@@ -46,9 +46,12 @@ def measures(request):
     return render(request,'home/measures.html',context)
 
 def addWorkout(request):
-    context={
-        "myTemplates" :WorkoutTemplate.objects.filter(user= request.user).order_by('-id')
+    try:
+        context={
+        "myTemplates" :WorkoutTemplate.objects.filter(user= request.user).order_by('-id'),
     }
+    except:
+        print("error")
 
     return render(request,'home/addWorkout.html',context)
 
