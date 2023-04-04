@@ -2,32 +2,44 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'exercises/css/aboutExercise.css' %}?{% now "D" %}">
+    <link rel="stylesheet" href="{% static 'exercises/css/aboutExercise.css' %}?{% now "U" %}">
 {% endblock head %}
 
 {% block body %}
-    <nav>
-        <div>ABOUT</div>
-        <div>HISTORY</div>
-        <div><a href="#records">Records</a></div>
-    </nav>
+    <div class="exercise-container"> 
+        <h3 class="heading" >{{exercise}}</h3>
+        <ul id="exercise-nav">
+            <li data-link="about">ABOUT</li>
+            <li data-link="history">HISTORY</li>
+            <li data-link="records">RECORDS</li>
+        </ul>
 
-    <div class="container">
-        <div class="about">
+        <div id="about" class="selected-tab">
             <div class="body-wrap">
-                <h2 class="heading" >{{exercise}}</h2>
                 <div class="content-wrap">
                     <div class="img-wrap">
                         <img src="{{exercise.image_url}}" alt="">
                     </div>
                     <div class="instructions">
-                        <h4 class="heading">Instructions</h4>
+                        <h4 class="heading-2">Instructions</h4>
                         {% for i in exercise.exerciseinstruction_set.all %}
-                            <p><span>{{i.step_number}}</span>{{i.description}}</p>
+                            <p class="step-number"><span>{{i.step_number}}</span>{{i.description}}</p>
                         {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
+
+        <div id="history" data-exercise-id={{exercise.id}}>
+
+        </div>
+
+        <div id="records">
+            <h1>records</h1>
+            <div id="exercise-list-container"></div>
+
+        </div>
     </div>
+
+    <script src="{% static 'exercises/js/exercises.js' %}"></script>
 {% endblock body %}
