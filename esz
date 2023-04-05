@@ -1,0 +1,71 @@
+[33mcommit 41b1fdfbf5f0a280c1cc4cbb5612f49eecd0181a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Tue Apr 4 22:39:15 2023 +0530
+
+    save changes made in exercise page
+
+[33mcommit ab4b3dbc2391734199384c4f5476723470b53767[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Fri Mar 31 23:27:27 2023 +0530
+
+    small change in strong/workout/static/workout/js/main.js
+
+[33mcommit 86624bfc153b9a7ec6a2155bc51c47c5a1d0dc0b[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Fri Mar 31 23:26:22 2023 +0530
+
+    made a small change in workout/ anadded new app called exercises
+
+[33mcommit c2aa61958bfc3525550b6e89cd32b4822ea6af1d[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Fri Mar 31 23:18:05 2023 +0530
+
+    finished wokrout features
+
+[33mcommit db4fcbb2b0c5df9dc566929add74d44da9519c91[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Wed Mar 29 21:45:28 2023 +0530
+
+    completed start empty workout
+
+[33mcommit 67d33cda132bf5f32a85c9e44a5b2336df14a463[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Sun Mar 26 23:17:50 2023 +0530
+
+    added some features to workout page
+
+[33mcommit 8524183dd674ef566e203a1134a5c89b9b243cb9[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Mon Mar 20 18:40:04 2023 +0530
+
+    finished add new template
+
+[33mcommit 39ab2315f3c74c53616a8418e7fe9ee679d76d6d[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Thu Mar 16 23:55:53 2023 +0530
+
+    added workout app and implemented some features
+
+[33mcommit 252d0cbf492f1c9cfa82802ef608020eb7752b82[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Fri Mar 10 14:56:50 2023 +0530
+
+    modified nav-bar design
+
+[33mcommit 7e1650149cf96f65777895e82a2606c510c9171b[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Fri Mar 10 12:45:43 2023 +0530
+
+    measure option completed
+
+[33mcommit 38ccc240d84c12b79e590d42c999336fe1b0aac5[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Mon Mar 6 22:00:13 2023 +0530
+
+    added authentication
+
+[33mcommit 8fd1a8dc9915484712cea0306fc66d9c2f07a70c[m
+Author: Arun Suresh <arunsuresh241@gmail.com>
+Date:   Sat Mar 4 11:50:59 2023 +0530
+
+    first commit

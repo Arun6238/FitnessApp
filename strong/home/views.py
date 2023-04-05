@@ -60,5 +60,12 @@ def userProfile(request):
     return render(request,'home/profile.html',context)
 
 def history(request):
+    try:
+        user = request.user
+        workout_sessions = WorkoutSession.objects.select_related('workoutsessionexercise').filter(user=user, finished=True)
+
+        print(workout_sessions)
+    except Exception as e:
+        print(e)
     context = {}
     return render(request,'home/history.html',context)
