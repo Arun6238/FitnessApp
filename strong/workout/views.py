@@ -1,14 +1,13 @@
 from django.shortcuts import render,redirect
 from home.models import WorkoutTemplate,WorkoutExercise,Exercise,WorkoutSession,WorkoutSessionExercise,Set
-from django.db.models import Q
 from django.db import transaction
-from django.http import JsonResponse, HttpResponseBadRequest
+from django.http import JsonResponse
 import json
-from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
 
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 
 # function to generate standard response format
 def get_response_dict(status,message,data=None):
@@ -18,6 +17,7 @@ def get_response_dict(status,message,data=None):
         'data':data
     }
 # Funcition to check wether a workout session is live 
+@login_required(login_url='login')
 def is_workout_session_in_progress(request):
     if WorkoutSession.objects.filter(user= request.user,finished= False).exists():
         return True
@@ -25,6 +25,7 @@ def is_workout_session_in_progress(request):
         return False
 
 # creates a new workout template
+@login_required(login_url='login')
 @transaction.atomic()
 def newTemplate(request):
     if request.method == 'POST':
@@ -61,6 +62,7 @@ def newTemplate(request):
 
 
 # returns a list of all exercise in Exercise model
+@login_required(login_url='login')
 def showAllExercises(request):
     data = {}
     exercises  = Exercise.objects.all().values()
@@ -69,6 +71,7 @@ def showAllExercises(request):
 
 # view funciton for starting empty workout
 # needs some modifications....
+@login_required(login_url='login')
 def startEmptyWorkout(request):
     try:
         if WorkoutSession.objects.filter(user= request.user,finished= False).exists():
@@ -86,6 +89,7 @@ def startEmptyWorkout(request):
     context = {"start_time":start_time,"WorkoutSession":w}
     return render(request,'workout/startEmpty.html',context)
 
+@login_required(login_url='login')
 @require_POST
 @transaction.atomic()
 def add_workout_session_exercise(request):
@@ -117,7 +121,7 @@ def add_workout_session_exercise(request):
     except Exception as e:
         return JsonResponse(get_response_dict('error', f"An error occured : {e}"))
 
-
+@login_required(login_url='login')
 @require_POST
 @transaction.atomic()
 def save_workout_session_exercise_Set(request):
@@ -175,6 +179,7 @@ def save_workout_session_exercise_Set(request):
 # set_number : 1
 # weight : 10
 # reps : 15}
+@login_required(login_url='login')
 @require_POST
 def add_workout_session_exercise_new_set(request):
     try:
@@ -189,6 +194,7 @@ def add_workout_session_exercise_new_set(request):
         "status":"success"
     })
 
+@login_required(login_url='login')
 @require_POST
 def finish_workout_session(request):
     try:
@@ -206,6 +212,7 @@ def finish_workout_session(request):
     
     return JsonResponse(get_response_dict('success','Workout saved successFully'))
 
+@login_required(login_url='login')
 def cancel_workout(request,id):
     try:
         workout_session = WorkoutSession.objects.get(pk =id)
@@ -216,6 +223,7 @@ def cancel_workout(request,id):
 
     return redirect('workouts')
 
+@login_required(login_url='login')
 @transaction.atomic()
 def select_template_as_workout(request,id):
     if is_workout_session_in_progress(request):
@@ -253,6 +261,7 @@ def select_template_as_workout(request,id):
             return JsonResponse(get_response_dict('error','could not create a workout session'))
     return JsonResponse(get_response_dict('success','workout session created successfully..'))
 
+@login_required(login_url='login')
 def delete_template(request,id):
     try:
         template = WorkoutTemplate.objects.get(pk =id)
@@ -264,6 +273,7 @@ def delete_template(request,id):
     
     return JsonResponse(get_response_dict('success','Template removed successfully'))
 
+@login_required(login_url='login')
 def rename_template(request,id,name):
     try:
         template = WorkoutTemplate.objects.get(pk =id)

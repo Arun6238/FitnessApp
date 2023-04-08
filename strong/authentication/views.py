@@ -1,24 +1,47 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+
+def anonymous_required(view_function, redirect_to=None):
+    """
+    Decorator for views that checks that the user is NOT logged in,
+    redirecting to the redirect_to page if necessary.
+    """
+    def wrapped_view(request, *args, **kwargs):
+        if request.user.is_authenticated:
+            if redirect_to is not None:
+                return redirect(redirect_to)
+            else:
+                return redirect('profile')
+        else:
+            return view_function(request, *args, **kwargs)
+    return wrapped_view
+
 
 # Create your views here.
 
+@anonymous_required
 def loginPage(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
 
-        user = authenticate(request,username = username,password=password)
-        if user is not None:
-            login(request,user)
-            return redirect('profile')
-
-        else:
-            return render(request,'authentication/login.html',{'error':'Invalid username or password.'})
+        try:
+            user = authenticate(request,username = username,password=password)
+            if user is not None:
+                login(request,user)
+                return redirect('profile')
+            else:
+                raise ValueError('Invalid username or password')
+        except (ValueError, PermissionDenied) as e:
+            return render(request,'authentication/login.html',{'error':str(e)})
             
     return render(request,'authentication/login.html')
 
+@anonymous_required
 def registerUser(request):
     if request.method == 'POST':
         name = request.POST['name']
@@ -40,6 +63,7 @@ def registerUser(request):
         return redirect('login')
     return render(request,'authentication/register.html')
 
+@login_required(login_url='login')
 def logoutUser(request):
     logout(request)
     return redirect('home')

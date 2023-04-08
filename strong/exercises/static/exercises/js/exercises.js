@@ -40,7 +40,11 @@ const postListContainer = document.querySelector('#exercise-list-container');
 const exerciseId = historyTab.getAttribute('data-exercise-id')
 const url = `/exercises/exercise-history/${exerciseId}`
 fetch(url)
-    .then(res => res.json())
+    .then(res =>{
+        if (res.ok)
+            return res.json()
+        return TypeError
+    })
     .then(data => {
 
         if(data.status == 'warning'){

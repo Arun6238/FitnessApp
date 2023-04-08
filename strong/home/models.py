@@ -130,7 +130,7 @@ class WorkoutSessionExercise(models.Model):
         return f"{self.workout_session.id} {self.workout_session.name} - ({self.exercise.name})"
 
 class Set(models.Model):
-    exercise_session = models.ForeignKey(WorkoutSessionExercise, on_delete=models.CASCADE,related_name='sets')
+    exercise_session = models.ForeignKey(WorkoutSessionExercise, on_delete=models.CASCADE)
     set_number = models.PositiveIntegerField()
     weight = models.FloatField(null=True,blank=True)
     reps = models.PositiveIntegerField(null=True,blank=True)

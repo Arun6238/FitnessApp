@@ -1,0 +1,104 @@
+.history-container{
+    padding:1em 1.5em ;
+}
+.heading{
+    display: flex;
+    justify-content: space-between;
+}
+.heading div{
+    display: flex;
+    align-items: center;
+}
+.heading button{
+    background-color: inherit;
+    border: #00c2c9 2px solid;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 14px;
+    color: #00c2c9;
+    padding: .4em .8em;
+    cursor: pointer;
+}
+.heading button:hover{
+    background-color: #dffeff;
+}
+.heading button:active{
+    background-color: #9ff9fc;
+}
+#datepicker{
+    border: 0;
+    background-color: inherit;
+    color: #00c2c9;
+    font-weight: bold;
+    font-size: 16px;
+
+}
+
+#datepicker:focus{
+    outline: none;
+    border: none;
+}
+
+
+
+
+.history-card{
+    padding: 1em;
+    border: 2px solid rgb(46, 46, 46);
+    border-radius: 4px;
+    margin-bottom: 1em;
+}
+.history-card:active{
+    background-color: #cdcdcd85;
+}
+.history-card h5{
+    color: #606060;
+    margin: 0;
+}
+.history-card table{
+    margin-top: 1em;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 14px;
+    
+}
+
+.history-card td{
+    color:#4a4a4a ;
+}
+.history-card td:not(:first-child),
+.history-card th:not(:first-child) {
+  padding:.3em 1em;
+}
+
+.card-title{
+    margin: 0;
+}
+
+#zero-workout-history{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    text-align: center;
+
+}
+#zero-workout-history >*{
+    margin: 0;
+}
+.exercise-details-div p,
+#zero-workout-history p{
+    font-size: 14px;
+    color: #606060;
+    margin: 2px;
+}
+.exercise-details-div h4{
+    font-size: 14px;
+    margin-block: 10px 2px;
+}
+.exercise-details-div span{
+    margin-right: 1em;
+}

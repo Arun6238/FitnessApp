@@ -2,10 +2,22 @@
 {% load static %}
 
 {% block head %}
+    <link rel="stylesheet" href="{% static 'home/css/history.css' %}?{% now "U" %}">
 {% endblock head %}
 
 {% block body %}
-<div class="container">
-    <h1>History</h1>
+<div class="history-container">
+    <div class="heading">
+        <h1>History</h1>
+        <div>
+            <input autocomplete="off" class="tooltip" title="Select a date to view your exercise session history for the 30 days prior to that date. By default, we'll show your 30 most recent sessions." name="date" type="date" id="datepicker" >
+            <button id="filter">Filter</button>
+        </div>
+    </div>
+    <div id="exercise-history">
+
+    </div>
+
 </div>
+<script src="{% static 'home/js/history.js' %}?{% now "U" %}"></script>
 {% endblock body %}

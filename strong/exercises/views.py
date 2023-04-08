@@ -1,15 +1,14 @@
 from django.shortcuts import render
 from django.http import JsonResponse,Http404
 
-from home.models import Exercise,Set,WorkoutSessionExercise,WorkoutSession
-from django.db.models import Prefetch
+from home.models import Exercise,Set,WorkoutSession
 from workout.views import get_response_dict
-from django.core import serializers
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.decorators import login_required
+
 
 
 # Create your views here.
-
+@login_required(login_url='login')
 def aboutExercise(request,id):
     exercise = Exercise.objects.get(pk=id)
     # Get the logged-in user
@@ -19,7 +18,7 @@ def aboutExercise(request,id):
     return render(request,'exercises/aboutExercise.html',context)
 
 
-
+@login_required(login_url='login')
 def exercise_history(request, id):
     try:
         user = request.user
