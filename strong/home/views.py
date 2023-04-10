@@ -8,7 +8,7 @@ from datetime import datetime,  timezone
 def exercisePage(request):
     exercises = Exercise.objects.all()
     context = {
-        'exercises':exercises
+        'exercises':exercises,
     }
     return render(request,'home/exercises.html',context)
 
@@ -55,13 +55,11 @@ def addWorkout(request):
 
 @login_required(login_url='login')
 def userProfile(request):
-    context = {}
-    return render(request,'home/profile.html',context)
+    return render(request,'home/profile.html')
 
 # function to display history page
 @login_required(login_url='login')
 def history(request):
-
     return render(request,'home/history.html')
 
 # funtion to send all the workout history of logined user

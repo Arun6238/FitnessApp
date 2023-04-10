@@ -3,6 +3,17 @@
     padding-block: 1em;
     position: relative;
 }
+
+#workout-name{
+    font-size:1.8em;
+    border: 0;
+    width: 100%;
+    margin-block:1em;
+
+}
+#workout-name:focus{
+    outline: none;
+}
 .first-row{
     position: relative;
 }

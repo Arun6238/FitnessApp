@@ -68,6 +68,42 @@ height: 100vh;
     to {-webkit-transform: scale(1, 1);}
  }
  
+ #workout-in-progress{
+   position: fixed;
+   left: 0;
+   right: 0;
+   bottom:0;
+
+   display: none;
+   z-index: 1001;
+   background-color: aliceblue;
+
+   /* height: 2em; */
+   padding-top:0;
+   padding-bottom:1em;
+   text-align: center;
+
+   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.457);
+
+ }
+ #workout-in-progress-span{
+  display: inline-block;
+  background-color:#9696969c;
+  width: 30px;
+  height: 3px;
+  border-radius: 3px;
+ }
+ #workout-in-progress >*{
+   margin: 0;
+ }
+ #workout-in-progress-heading{
+   font-size: 22px;
+ }
+ #timer-2{
+   color: #696969;
+ }
+
+
  @media only screen and (min-width:600px) {
    .loader1 span {
       width:50px;

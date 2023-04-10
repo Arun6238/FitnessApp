@@ -7,7 +7,9 @@
 {% block body %}
     <div class="container">
         <div class="first-row">
-            <h1>{{WorkoutSession.name}}</h1>
+            <div class="workout-name-wrap">
+                <h1 data-workout-session-id="{{WorkoutSession.id}}" id="workout-name">{{WorkoutSession.name}}</h1>
+            </div>
             <div style="position: relative;margin-bottom:2em;">
                 <p id="time" data-time="{{start_time}}">00:00:00</p>
                 <button id="finish" >FINISH</button>

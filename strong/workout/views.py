@@ -9,6 +9,9 @@ from django.views.decorators.http import require_POST
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 
+import datetime
+
+
 # function to generate standard response format
 def get_response_dict(status,message,data=None):
     return {
@@ -69,25 +72,66 @@ def showAllExercises(request):
     data['exercises'] = list(exercises)
     return JsonResponse(data)
 
+
+@login_required(login_url='login')
+def check_for_live_workout_session(request):
+    if WorkoutSession.objects.filter(user= request.user,finished= False).exists():
+        workout_session = WorkoutSession.objects.filter(user= request.user,finished = False)[0]
+
+        context = {
+                    'workout_session_name':workout_session.name,
+                    'time':workout_session.started_at
+                    }
+        
+        return JsonResponse(get_response_dict('success','workout session in progress',context))
+    return JsonResponse(get_response_dict('failed','No workout session in progress'))
 # view funciton for starting empty workout
 # needs some modifications....
 @login_required(login_url='login')
 def startEmptyWorkout(request):
     try:
+        # check if there i a workout session already in progress
         if WorkoutSession.objects.filter(user= request.user,finished= False).exists():
             w = WorkoutSession.objects.filter(user= request.user,finished = False)[0]
-            print(w.name)
-            for i in w.workoutsessionexercise_set.all():
-                print(i)
-                for j in i.set_set.all():
-                    print(j)
         else:
-            w =  WorkoutSession.objects.create(user= request.user,name="new workout",finished=False)
+            # save the current time in current_time variable
+            current_time = datetime.datetime.now().time()
+            # give the workout a name using current time
+            if current_time < datetime.time(7):
+                workout_name = "Early Morning Workout"
+            elif current_time < datetime.time(12):
+                workout_name = "Morning Workout"
+            elif current_time < datetime.time(15):
+                workout_name = "Afternoon Workout"
+            elif current_time <datetime.time(18):
+                workout_name = "Evening Workout"
+            else:
+                workout_name = "Night Workout"
+
+            w =  WorkoutSession.objects.create(user= request.user,name=workout_name,finished=False)
     except:
         print("some thinf went wrong...")
     start_time = w.started_at.isoformat()
-    context = {"start_time":start_time,"WorkoutSession":w}
+    context = {"start_time":start_time,"WorkoutSession":w,"page":'start_empty_workout'}
     return render(request,'workout/startEmpty.html',context)
+
+#  funtion to rename workout session
+@login_required(login_url='login')
+def rename_empty_workout(request):
+    workout_session_id = request.GET.get('id')
+    newName = request.GET.get('name')
+
+    try:
+        workout_session = WorkoutSession.objects.get(id = workout_session_id)
+
+        if(workout_session.name != newName):
+            workout_session.name = newName
+            workout_session.save()
+
+    except Exception as e:
+        print(f'error occured : {e}')
+        return JsonResponse(get_response_dict('error','rename failed'))
+    return JsonResponse(get_response_dict('success','renamed succesfully'))
 
 @login_required(login_url='login')
 @require_POST
@@ -98,9 +142,6 @@ def add_workout_session_exercise(request):
         data = json.loads(body)
         workout_session = get_object_or_404(WorkoutSession, id=data['workoutSessionId'])
         user = request.user
-
-        if not user.is_authenticated:
-            return JsonResponse(get_response_dict('error', "User not authenticated"))
 
         exercises_added = []
         for exercise_id in data['exercises']:
@@ -179,6 +220,8 @@ def save_workout_session_exercise_Set(request):
 # set_number : 1
 # weight : 10
 # reps : 15}
+
+# this funcion is not used anywhere
 @login_required(login_url='login')
 @require_POST
 def add_workout_session_exercise_new_set(request):
@@ -205,9 +248,36 @@ def finish_workout_session(request):
     
     try:
         workout_session = WorkoutSession.objects.get(pk = data['workout_session_id'])
+
+        finished_set = 0
+        unfinished_sets = []
+        unfinished_exercise =[]
+        for exercise in workout_session.workoutsessionexercise_set.all():
+            sets = exercise.set_set.all().order_by('set_number')
+            for set in sets:
+                # check if each sets are empy or not
+                if not isinstance(set.weight,(int,float)) or not isinstance(set.reps,(int,)):
+                    # if first set is empty that means all the other sets are empty.So add the exercise to unfinished_exercise
+                    if set.set_number == 1:
+                        unfinished_exercise.append(set.exercise_session)
+                        break
+                    # save all the unfinished sets objects in unfinished set arrray
+                    unfinished_sets.append(set)
+                finished_set +=1
+
+        if finished_set <1:
+            return JsonResponse(get_response_dict('warning','you havent finished any set'))
+        
+        # delete all the unfinished exercise
+        for exercise in unfinished_exercise:
+            exercise.delete()
+        # delete all the unfinished sets
+        for set in unfinished_sets:
+            set.delete()
+
         workout_session.finished = True
         workout_session.save()
-    except:
+    except Exception as e:
         return JsonResponse(get_response_dict('error','could not save wokrout..'))
     
     return JsonResponse(get_response_dict('success','Workout saved successFully'))

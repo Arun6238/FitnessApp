@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-evenly;
     background-color: rgb(48, 48, 48);
-    color: aliceblue;
+    color: white;
     margin: 0;
     padding-top:1.5em ;
     padding-bottom: .5em;
@@ -16,7 +16,7 @@
 }
 
 .nav-link{
-    color: aliceblue;
+    color: inherit;
     text-decoration: none;
     display: flex;
     gap: 5px;

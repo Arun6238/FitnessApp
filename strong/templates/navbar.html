@@ -8,3 +8,20 @@
     <a class="nav-link" href="{% url 'measures' %}"><i class="fa-solid fa-ruler"></i><span>Measure</span></a>
 </nav>
 
+
+<script>
+   // Get all the links with the 'nav-link-item' class
+   var navLinks = document.querySelectorAll(".nav-link");
+
+   // Add an event listener to each link to prevent the default action
+   navLinks.forEach(function(link) {
+        if (link.href === window.location.href) {
+            link.style.color ='#FDFE99';
+        }
+       link.addEventListener("click", function(event) {
+        if (link.href === window.location.href) {
+            event.preventDefault();
+        }
+       });
+   });
+</script>

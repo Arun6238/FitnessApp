@@ -1,0 +1,15 @@
+.profile-title-wrap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.2em;
+
+    font-size:1em;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.566);
+
+}
+.profile-title-wrap a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}

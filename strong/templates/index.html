@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now "d" %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now "U" %}">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
     <title>Document</title>
     <script src="https://kit.fontawesome.com/162be52fef.js" crossorigin="anonymous"></script>
@@ -22,15 +22,17 @@
     </div>
 </div>
     {% include 'navbar.html' %}
-    {% block body %}{% endblock body %}
+    {% if  page != 'start_empty_workout' %}
+    <div id='workout-in-progress'>
+        <span id='workout-in-progress-span'></span>
+        <h3 id='workout-in-progress-heading'>Workout</h3>
+        <h5 id="timer-2"></h5>
+    </div>
+    {% endif %}
+    {% block body %}
 
-    <script>
-        let preloader = document.querySelector('.preloader')
-        window.addEventListener('load',function(){
-            setTimeout(function(){
-                preloader.style.display="none"
-            },200)
-        })
-    </script>
+    {% endblock body %}
+
+<script src="{% static 'js/index.js' %}? {% now "U" %}"></script>
 </body>
 </html>

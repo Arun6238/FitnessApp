@@ -405,7 +405,57 @@ function createInput(name){
 	})
 	return inp
 }
+// restric input field to have empty spaces as first charecter
+function restrictLeadingSpace(event) {
+	const inputValue = event.target.value;
+	if (inputValue.charAt(0) === " ") {
+	  event.target.value = inputValue.trimStart();
+	}
+  }
+// function to rename an empty workout sesson
+let workoutSessionNameElement = document.getElementById('workout-name')
+workoutSessionNameElement.addEventListener('click',function(){
+	const inp = document.createElement('input')
+	inp.value = this.innerText
+	inp.id = this.id
 
+	// replace heading element with input element to edit the workout session name
+	this.replaceWith(inp)
+	inp.focus()
+	inp.addEventListener('input',restrictLeadingSpace)
+
+	inp.addEventListener('blur',function replace(){
+		//save input field value as new name 
+		let newName = this.value
+		if(newName != workoutSessionNameElement.innerText){
+			if(newName.length != 0){
+				workoutSessionNameElement.innerText = newName
+				sessionID = workoutSessionNameElement.getAttribute('data-workout-session-id')
+				fetch(`/workout/rename-empty-workout?id=${sessionID}&name=${newName}`)
+				.then(res => {
+					if(res.ok){
+						return res.json()
+					}
+					else{
+						console.log('something went wrong')
+					}
+				})
+				.then(data => {
+					if(data.status == 'success'){
+						console.log(data.message)
+					}
+					else	
+						console.log(data.messsage)
+				})
+				.catch(error =>{
+					console.log(error)
+				})
+			}
+		}
+		this.replaceWith(workoutSessionNameElement)
+		this.removeEventListener('blur',replace)
+	})
+})
 // function to finish workout
 const finishButton = document.querySelector("#finish")
 const conformation = document.querySelector('.confirmation')
@@ -434,6 +484,9 @@ function finishWorkoutSession(){
 			if(data.status == 'success'){
 				alert(data.message)
 				window.location.href= "/workouts"
+			}
+			else if(data.status == 'warning'){
+				alert(data.message)
 			}
 			else{
 				console.log(`${data.error}: ${data.message}`)

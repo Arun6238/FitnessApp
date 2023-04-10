@@ -14,6 +14,7 @@ def aboutExercise(request,id):
     # Get the logged-in user
     context = {
         'exercise':exercise,
+        'page':'exercise'
     }
     return render(request,'exercises/aboutExercise.html',context)
 
