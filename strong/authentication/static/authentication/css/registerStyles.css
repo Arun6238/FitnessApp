@@ -1,18 +1,12 @@
 body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: rgb(98, 98, 98);
-}
-body{
     padding: 0;
     margin: 0;
     background-color: rgb(241, 255, 250);
 }
 
-#error-msg{
-    color: aqua;
-    background-color: red;
-    height: 2em;
-}
+
 
 .container{
     display: flex;
@@ -21,12 +15,21 @@ body{
     width: 100%;
     padding-bottom: 2em;
 }
+#error-msg{
+    background-color: rgb(255, 214, 11);
+    padding: .5em 1em;
+    position: absolute;
+    width: 100%;
+    max-width: 320px;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
 .container >form{
     position: relative;
-    border-radius: 15px;
-    max-width: 480px;
-    padding: 70px 35px 40px 35px;
-    margin-top: 20px;
+    max-width: 440px;
+    padding: 30px 35px 40px 35px;
+    margin-top: 90px;
     background-color: rgb(255, 255, 255);
     overflow: hidden;
 

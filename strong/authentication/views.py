@@ -66,4 +66,4 @@ def registerUser(request):
 @login_required(login_url='login')
 def logoutUser(request):
     logout(request)
-    return redirect('home')
+    return redirect('login')

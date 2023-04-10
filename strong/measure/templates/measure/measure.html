@@ -2,7 +2,7 @@
 {% load static %}
 {% block head %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="{% static 'measure/css/style.css' %}?{% now "U" %}">
+    <link rel="stylesheet" href="{% static 'measure/css/style.css' %}">
 {% endblock head %}
 
 {% block body %}
@@ -56,6 +56,6 @@
     <script>
       {% comment %} console.log({{data}}) {% endcomment %}
     </script>
-    <script src="{% static 'measure/js/main.js' %}?{% now "U" %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+    <script src="{% static 'measure/js/main.js' %}"></script>
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script> {% endcomment %}
 {% endblock body %}

@@ -249,6 +249,9 @@ def finish_workout_session(request):
     try:
         workout_session = WorkoutSession.objects.get(pk = data['workout_session_id'])
 
+        if workout_session.finished == True:
+            return JsonResponse(get_response_dict('alert','Workout session is already saved'))
+
         finished_set = 0
         unfinished_sets = []
         unfinished_exercise =[]
@@ -286,12 +289,14 @@ def finish_workout_session(request):
 def cancel_workout(request,id):
     try:
         workout_session = WorkoutSession.objects.get(pk =id)
+        if workout_session.finished == True:
+            return JsonResponse(get_response_dict('alert','This workout session is already saved'))
         workout_session.delete()
     except:
         print("could not cancel the workout")
         return JsonResponse(get_response_dict('error','could not cancel the workout'))
 
-    return redirect('workouts')
+    return JsonResponse(get_response_dict('success','saved successfully'))
 
 @login_required(login_url='login')
 @transaction.atomic()

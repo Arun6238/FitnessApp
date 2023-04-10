@@ -10,7 +10,9 @@
   <body>
     <div class="container">
       {% if error %}
+      <p id="error">
         {{error}}
+      </p>
       {% endif %}
       <div class="card">
         <div class="background"></div>
@@ -30,7 +32,7 @@
           </form>
           <div class="footer">
             <p class="text">Don't have an account? <a class="link" href="{% url 'register' %}">Sign up</a></p>
-            <p class="text">Forgot password? <a class="link" href="#">Reset it</a></p>
+            {% comment %} <p class="text">Forgot password? <a class="link" href="#">Reset it</a></p> {% endcomment %}
           </div>
         </div>
       </div>

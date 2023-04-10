@@ -1,5 +1,5 @@
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/navStyle.css' %}?{% now "U" %}">
+<link rel="stylesheet" href="{% static 'css/navStyle.css' %}">
 <nav class="nav">
     <a class="nav-link" href="{% url 'profile' %}"><i class="fa-solid fa-user"></i><span>Profile</span> </a>
     <a class="nav-link" href="{% url 'history' %}"><i class="fa-solid fa-clock-rotate-left"></i><span>History</span></a>

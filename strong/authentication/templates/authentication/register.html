@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>Register</title>
-    <link rel="stylesheet" href="{% static 'authentication/css/registerStyles.css' %}?{% now "DATE" %} ">
+    <link rel="stylesheet" href="{% static 'authentication/css/registerStyles.css' %}">
     <script src="https://kit.fontawesome.com/162be52fef.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="container">
         {% if error  %}
-            <p style="color:red" ><strong>{{ error }}!</strong></p>
+            <p id='error-msg' ><strong>{{ error }}!</strong></p>
         {% endif %}
         <form method="post" autocomplete="off">
           <div class="circle1"></div>

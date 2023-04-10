@@ -378,7 +378,6 @@ addSetButton.forEach(btn => {
 			newRow.append(createTd(button))
 			table.append(newRow)
 
-			console.log(data)
 		}
 		else{
 			alert("please complete or save the previous set before adding new one")
@@ -485,6 +484,9 @@ function finishWorkoutSession(){
 				alert(data.message)
 				window.location.href= "/workouts"
 			}
+			else if(data.status == 'alert'){
+				alert(data.message)
+			}
 			else if(data.status == 'warning'){
 				alert(data.message)
 			}
@@ -511,3 +513,29 @@ document.querySelector("#confirm-button").addEventListener('click',finishWorkout
 // 	return setData
 	
 // }
+
+// function to cancel workout
+
+cancelWorkoutButton = document.getElementById("cancelWorkout")
+cancelWorkoutButton.addEventListener('click',function(){
+	const workout_session_id = this.getAttribute('data-id')
+	url = `/workout/cancel-workout/${workout_session_id}`
+	fetch(url)
+	.then(res => {
+		if (res.ok){
+			return res.json()
+		}
+		else{
+			alert('some thing went wrong')
+		}
+	})
+	.then(data =>{
+		if(data.status == 'success'){
+			alert('workout session removed successfully..')
+			window.location.href = '/workouts'
+		}
+		else if(data.status == 'alert'){
+			alert(data.message)
+		}
+	})
+})

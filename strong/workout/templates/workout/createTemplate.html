@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'workout/css/createTemplate.css' %}?{% now "U" %}">
-    <link rel="stylesheet" href="{% static 'workout/css/selectedExercise.css' %}?{% now "U" %}">
+    <link rel="stylesheet" href="{% static 'workout/css/createTemplate.css' %}">
+    <link rel="stylesheet" href="{% static 'workout/css/selectedExercise.css' %}">
 {% endblock head %}
 
 {% block body %}
@@ -26,8 +26,8 @@
         </div>
         <button class="exercise-select"><i class="fa fa-check"></i></button>
     </div>
-    <script src="{% static 'workout/js/main.js' %}?{% now "U" %}"></script>
-    <script src="{% static 'workout/js/showExercises.js' %}?{% now "U" %}"></script>
-    <script src="{% static 'workout/js/saveTemplate.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'workout/js/main.js' %}"></script>
+    <script src="{% static 'workout/js/showExercises.js' %}"></script>
+    <script src="{% static 'workout/js/saveTemplate.js' %}"></script>
 
 {% endblock body %}

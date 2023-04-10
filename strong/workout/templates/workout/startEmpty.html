@@ -1,8 +1,8 @@
 {% include 'index.html' %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'workout/css/selectedExercise.css' %}?{% now "U" %}">
-    <link rel="stylesheet" href="{% static 'workout/css/startEmptyWorkout.css' %}?{% now "U" %}">
+    <link rel="stylesheet" href="{% static 'workout/css/selectedExercise.css' %}">
+    <link rel="stylesheet" href="{% static 'workout/css/startEmptyWorkout.css' %}">
 {% endblock head %}
 {% block body %}
     <div class="container">
@@ -57,7 +57,7 @@
             <button id="addExercise">ADD EXERCISE</button>
         </div>
         <div class="btn-container">
-            <a id="cancelWorkout" href="{% url 'cancel-workout' WorkoutSession.id %}">CANCEL WORKOUT</a>
+            <button id="cancelWorkout" data-id="{{WorkoutSession.id}}" >CANCEL WORKOUT</button>
         </div>
     </div>
     <div class="all-exercises">
