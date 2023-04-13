@@ -1,5 +1,5 @@
 .exercise-container{
-    padding: 1em 2em;
+    padding: 1em 2em 5em 2em ;
 }
 .heading{
     font-size: 25px;
@@ -103,30 +103,30 @@
 
 .exercise-card{
     width: (100% -2em );
-    border: 2px solid gray;
+    border: 2px solid rgb(53, 52, 52);
     padding: .5em 1em 1em;
-    border-radius: 5px;
+    border-radius: 4px;
     margin-bottom: 1em;
 }
 .exercise-card-title{
     margin-bottom: 0;
 }
 .exercise-card-date{
-    margin-top: 5px;
-    font-size: 14px;
-    color: slategray;
+    margin-block: 2px 10px;
+    font-size: 13px;
+    color: rgba(74, 74, 75, 0.92);
+    font-weight: 700;
 }
 .exercise-card-table{
-    font-size: 15px;
-    border-collapse: separate;
-    border-spacing: 0 10px;
+    font-size: 14px;
 
 }
 .exercise-card-table th{
     padding-right: 4em;
+    padding-bottom: 5px;
 }
 .exercise-card-table span{
-    margin-right: 20px;
+    margin-right: 15px;
 }
 .not-performed{
     text-align: center;

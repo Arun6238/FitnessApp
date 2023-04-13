@@ -12,7 +12,7 @@
             </div>
             <div style="position: relative;margin-bottom:2em;">
                 <p id="time" data-time="{{start_time}}">00:00:00</p>
-                <button id="finish" >FINISH</button>
+                <button id="finish" class="btn-to-disabled" >FINISH</button>
             </div>
             <div class="selected-exercise">
                 {% if WorkoutSession.workoutsessionexercise_set.all %}
@@ -54,10 +54,10 @@
             </div>
         </div>
         <div class="btn-container">
-            <button id="addExercise">ADD EXERCISE</button>
+            <button id="addExercise" class="btn-to-disabled">ADD EXERCISE</button>
         </div>
         <div class="btn-container">
-            <button id="cancelWorkout" data-id="{{WorkoutSession.id}}" >CANCEL WORKOUT</button>
+            <button id="cancelWorkout" class="btn-to-disabled" data-id="{{WorkoutSession.id}}" >CANCEL WORKOUT</button>
         </div>
     </div>
     <div class="all-exercises">
@@ -75,5 +75,5 @@
             </div>
         </div>
     </div>
-    <script src="{% static 'workout/js/startEmptyWorkout.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'workout/js/startEmptyWorkout.js' %}?{% now "d" %}"></script>
 {% endblock body %}

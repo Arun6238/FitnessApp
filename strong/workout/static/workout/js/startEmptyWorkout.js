@@ -532,6 +532,10 @@ cancelWorkoutButton.addEventListener('click',function(){
 	.then(data =>{
 		if(data.status == 'success'){
 			alert('workout session removed successfully..')
+			const buttons = document.getElementsByClassName('btn-to-disabled')
+			for(let i of buttons){
+				i.disabled = true
+			}
 			window.location.href = '/workouts'
 		}
 		else if(data.status == 'alert'){

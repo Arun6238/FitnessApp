@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse,Http404
 
+from django.db.models import Sum
 from home.models import Exercise,Set,WorkoutSession
+
 from workout.views import get_response_dict
 from django.contrib.auth.decorators import login_required
 
@@ -44,3 +46,12 @@ def exercise_history(request, id):
         print(f"Error occurred: {e}")
         raise Http404("Exercise history not found")
 
+
+def presonal_records(request):
+    max_volume_workout = (
+    WorkoutSession.objects
+        .filter(exercise__id=1)
+    .annotate(total_volume=Sum('workoutsessionexercise__set__weight' * 'workoutsessionexercise__set__reps'))
+    .order_by('-total_volume')
+    .first()
+    )

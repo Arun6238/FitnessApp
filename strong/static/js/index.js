@@ -61,6 +61,7 @@ var stopwatch2 = {
             workoutInProgressHeading.textContent = data.data.workout_session_name
             stopwatch2.start(data.data.time)
             workoutInProgress.style.display= 'block'
+            document.body.style.paddingBottom = "4em"
             workoutInProgress.addEventListener('click',redirectToStartEmptyWorkout)
         }
         else{

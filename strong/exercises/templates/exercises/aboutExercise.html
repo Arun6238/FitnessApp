@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'exercises/css/aboutExercise.css' %}">
+    <link rel="stylesheet" href="{% static 'exercises/css/aboutExercise.css' %}?{% now "U" %}">
 {% endblock head %}
 
 {% block body %}
@@ -41,5 +41,5 @@
         </div>
     </div>
 
-    <script src="{% static 'exercises/js/exercises.js' %}"></script>
+    <script src="{% static 'exercises/js/exercises.js' %}?{% now "U" %}"></script>
 {% endblock body %}

@@ -7,8 +7,6 @@ button.addEventListener('click',function(){
 
 
 
-
-
 // function to cancle confirmation 
 const cancelConfirmation = document.querySelector('#cancel-confirmation-button')
 cancelConfirmation.addEventListener('click',function(){
@@ -16,17 +14,10 @@ cancelConfirmation.addEventListener('click',function(){
 })
 
 
-
-
-
-
-
 // edit a template 
 function editTemplate(){
     alert('this option is not avaliable')
 }
-
-
 
 
 
@@ -42,6 +33,10 @@ function hideRenameTab(){
 // rename a template
 function renameTemplate(){
     renameTemplateTab.style.display = 'block'
+    cover_all.addEventListener('click',function closeRenameTab(){
+        renameTemplateTab.style.display = 'none'
+        cover_all.removeEventListener('click',closeRenameTab)
+    })
     const id = this.parentElement.getAttribute('data-template-id')
     function preventLeadingSpace(event) {
 
