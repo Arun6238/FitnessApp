@@ -12,6 +12,7 @@
 }
 .title{
     position: relative;
+    padding-right: 3em;
     z-index: 0;
 }
 .title button{

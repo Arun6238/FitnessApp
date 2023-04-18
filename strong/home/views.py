@@ -3,13 +3,39 @@ from django.http import JsonResponse
 from .models import *
 from workout.views import get_response_dict 
 from django.contrib.auth.decorators import login_required
-from datetime import datetime,  timezone
+from datetime import datetime
+
+from django.core.paginator import Paginator ,EmptyPage, PageNotAnInteger
+
 @login_required(login_url='login')
 def exercisePage(request):
-    exercises = Exercise.objects.all()
-    context = {
-        'exercises':exercises,
-    }
+    exercises = Exercise.objects.all().order_by('id').values('id','name','body_part','image_url')
+    paginator = Paginator(exercises, 10) # Show 10 exercises per page
+
+    if 'HTTP_ACCEPT' in request.META and 'application/json' in request.META['HTTP_ACCEPT']:
+        page_number = request.GET.get('page')
+        try:
+            page_obj = paginator.page(page_number)
+        except (PageNotAnInteger, EmptyPage):
+            return JsonResponse(get_response_dict('error','Invalid page number', None))
+
+        exercise_dict = list(page_obj)
+        if not page_obj.has_next():
+            data = {
+                'has_next': False,
+                'exercises':exercise_dict
+            }
+        else:
+            data= {
+                'has_next': True,
+                'exercises':exercise_dict
+                }
+        
+        return JsonResponse(get_response_dict('success','no message',data))
+    page_number = 1
+    page_obj = paginator.get_page(page_number)
+    context = {'exercises': page_obj}
+
     return render(request,'home/exercises.html',context)
 
 @login_required(login_url='login')

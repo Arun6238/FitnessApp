@@ -2,17 +2,18 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'home/css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'home/css/profile.css' %}?{% now "D" %}">
 {% endblock head %}
 
 {% block body %}
-    <div class="container">
-        <div class="profile-title-wrap">
-            <h3>Profile</h3>
-            {% if request.user.is_authenticated %}
-            <a href="{% url 'logout' %}" id='logout'><i class="fa fa-sign-out"></i>Logout</a>
-            {% endif %}
-        </div>
+    <div class="profile-title-wrap">
+        <h3>Profile</h3>
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}" id='logout'><i class="fa fa-sign-out"></i>Logout</a>
+        {% endif %}
+    </div>
+    <div class="profile-container">
+        <h4>Welcome <span class="username">{{request.user}}</span></h4>
     </div>
 {% endblock body %}
 

@@ -7,17 +7,17 @@
 {% include 'navbar.html' %}
 
 {% block body %}
-    <div class="exercise-wrap">
+    <div class="exercise-wrap" id="exercise-wrap">
         <h1>Exercises</h1>
         {% for exercise in exercises %}
             <div class="exercise-container" data-url="{% url 'about-exercise' exercise.id %}">
-                <img src="{{ exercise.image_url }}" alt="{{exercise}} logo" height="50px" width="50px">
+                <img src="{{ exercise.image_url }}" alt="{{exercise.name}} logo" height="50px" width="50px">
                 <div class="exercise-inner-container">
-                    <h4>{{exercise}}</h4>
+                    <h4>{{exercise.name}}</h4>
                     <p>{{exercise.body_part}}</p>
                 </div>
             </div>
         {% endfor %}
-    <script src="{% static 'home/js/exercises.js' %}"></script>
-</div>
+        <script src="{% static 'home/js/exercises.js' %}?9"></script>
+    </div>
 {% endblock body %}
