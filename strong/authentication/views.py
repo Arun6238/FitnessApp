@@ -66,4 +66,8 @@ def registerUser(request):
 @login_required(login_url='login')
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    response = redirect('login')
+    response.delete_cookie('sessionid')
+    response.delete_cookie('csrftoken')
+    
+    return response
