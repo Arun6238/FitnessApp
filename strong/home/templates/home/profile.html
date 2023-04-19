@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'home/css/profile.css' %}?{% now "D" %}">
+<link rel="stylesheet" href="{% static 'home/css/profile.css' %}?{% now "U" %}">
 {% endblock head %}
 
 {% block body %}
@@ -13,8 +13,32 @@
         {% endif %}
     </div>
     <div class="profile-container">
-        <h4>Welcome <span class="username">{{request.user}}</span></h4>
+        <h4>Welcome,<span class="username">{{request.user}}</span></h4>
+
+        <div id="profile-dashboard">
+
+            <h3 class="total-workout-title">Total Workouts:                 <span class="total-workout-count">{{count}}</span></h3>
+            <h5 id="recent-workout-blocks-title">Recent Workout Session</h5>
+
+            <div id="recent-workout">
+                {% if recent_workout%}
+                    <h3 class="recent-workout-name">{{recent_workout}}</h3>
+                    <p class="recent-workout-time">{{recent_workout.started_at}}</p>
+                    {% for exercise in recent_workout.workoutsessionexercise_set.all %}
+                        <h5 class="recent-workout-exercise">{{exercise.exercise.name}}</h5>
+                        {% for set in exercise.set_set.all %}
+                            <p class="recent-workout-sets">{{set}}</p>
+                        {% endfor %}
+                    {% endfor %}
+                    {% else %}
+                    <div id="no-recent-workout">
+                        <p>No workout sessions found..</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
+
 {% endblock body %}
 
         {% comment %} {% if request.user.is_authenticated %}

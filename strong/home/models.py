@@ -136,7 +136,7 @@ class Set(models.Model):
     reps = models.PositiveIntegerField(null=True,blank=True)
 
     def __str__(self):
-        return f"Set {self.set_number} - {self.exercise_session}"
+        return f"{self.set_number} _ {self.weight}kg x {self.reps}"
 
     class Meta:
         unique_together = ('exercise_session','set_number') 

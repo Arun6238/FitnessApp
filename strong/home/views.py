@@ -81,7 +81,15 @@ def addWorkout(request):
 
 @login_required(login_url='login')
 def userProfile(request):
-    return render(request,'home/profile.html')
+    user = request.user
+
+    completed_workout_count = WorkoutSession.objects.filter(user=user,finished =True).count()
+    recent_workout = WorkoutSession.objects.filter(user=user, finished =True).order_by('-started_at').first()
+    context = {
+        'count':completed_workout_count,
+        'recent_workout':recent_workout
+    }
+    return render(request,'home/profile.html',context)
 
 # function to display history page
 @login_required(login_url='login')

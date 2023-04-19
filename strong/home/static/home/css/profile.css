@@ -16,7 +16,48 @@
     color: black;
     font-weight: bold;
 }
+#profile-dashboard{
+    padding-top:15px;
+}
 .username{
-    color: rgb(164, 55, 0);
+    color: crimson;
     font-size: 15px;
+}
+
+.total-workout-count{
+    color:crimson;
+    font-weight: bold;
+}
+#recent-workout-blocks-title{
+    color: #5a5959;
+    margin-bottom: 4px;
+}
+#recent-workout{
+    padding:1em;
+    border-radius: 2px;
+    border: 2px solid gray;
+}
+.recent-workout-name{
+    margin-block: 4px;
+}
+.recent-workout-time{
+    margin: 0;
+    color: #5a5959;
+    font-size: 14px;
+}
+.recent-workout-exercise{
+    margin-bottom: 0;
+}
+.recent-workout-sets{
+    margin-block: 4px;
+    font-size:14px;
+    color: #5a5959;
+}
+#no-recent-workout{
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: #5a5959;
 }
