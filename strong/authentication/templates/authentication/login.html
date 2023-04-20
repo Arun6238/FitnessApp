@@ -18,7 +18,7 @@
         <div class="background"></div>
         <div class="content">
           <h1 class="title">Login Now</h1>
-          <form class="form" method="post">
+          <form class="form" method="post" onsubmit="return validateForm()">
             {% csrf_token %}
             <div class="form-group">
               <label class="label" for="username">Username</label>
@@ -37,7 +37,15 @@
         </div>
       </div>
     </div>
-    
   </body>
+  <script>
+    // this function helps to reload the login page when it is loaded from browsers cache.if the user is authenticated reloading login page redirect the user to profile page
+  window.onpageshow = function(e){
+      if(e.persisted){
+        location.reload(true)
+      }
+    }
+
+  </script>
 </html>
 

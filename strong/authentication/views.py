@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.cache import never_cache
+
 
 def anonymous_required(view_function, redirect_to=None):
     """
@@ -23,8 +25,10 @@ def anonymous_required(view_function, redirect_to=None):
 
 # Create your views here.
 
+@never_cache
 @anonymous_required
 def loginPage(request):
+    
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -37,10 +41,15 @@ def loginPage(request):
             else:
                 raise ValueError('Invalid username or password')
         except (ValueError, PermissionDenied) as e:
-            return render(request,'authentication/login.html',{'error':str(e)})
+            response = render(request,'authentication/login.html',{'error':str(e)})
+            response['Pragma'] = 'no-cache'
+            return response
             
-    return render(request,'authentication/login.html')
+    response = render(request, 'authentication/login.html')
+    response['Pragma'] = 'no-cache'
+    return response
 
+@never_cache
 @anonymous_required
 def registerUser(request):
     if request.method == 'POST':
@@ -51,17 +60,23 @@ def registerUser(request):
 
         if User.objects.filter(username = username).exists():
             context = {"error":"Username already exists"}
-            return render(request,'authentication/register.html',context)
+            response = render(request,'authentication/register.html',context)
+            response['Pragma'] = 'no-cache'
+            return response
 
         if User.objects.filter(email = email).exists():
             context = {"error":"Email address already exists."}
-            return render(request,'authentication/register.html',context)            
+            response = render(request,'authentication/register.html',context)
+            response['Pragma'] = 'no-cache'
+            return response          
 
         user = user = User.objects.create_user(username, email, password)
         user.first_name = name
         user.save()
         return redirect('login')
-    return render(request,'authentication/register.html')
+    response = render(request,'authentication/register.html')
+    response['Pragma'] = 'no-cache'
+    return response
 
 @login_required(login_url='login')
 def logoutUser(request):
