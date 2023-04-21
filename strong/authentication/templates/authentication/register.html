@@ -13,7 +13,7 @@
         {% if error  %}
             <p id='error-msg' ><strong>{{ error }}!</strong></p>
         {% endif %}
-        <form method="post" autocomplete="off">
+        <form method="post" autocomplete="off" name="registerForm" onsubmit="return validateForm()">
           <div class="circle1"></div>
           <div class="circle2"></div>
             <h1>Create Account</h1>
@@ -55,10 +55,12 @@
             <div class="form-content">
                 <i class="fa fa-lock" ></i>
                 <label for="password2">Confirm Password</label>
+                
             </div>
             <div class="input-wrap">
                 <input id="conf-pass" type="password" name="password2" required>
                 <i data-id="conf-pass" class= "fas fa-eye show-password"></i>
+                <span style="display:none;color:#BE0000B9;font-size:14px;" id="pass-no-match">Password dosen't match</span>
             </div>
 
             <div>
@@ -71,6 +73,58 @@
       </div>
 
       <script>
+        const password1 = document.getElementById("pass")
+        const password2 = document.getElementById("conf-pass")
+
+        // function to check if both password are same
+        function confirmPassword(){
+          	if(password1.value == password2.value)
+            	return true
+          	else
+            	return false
+        }
+
+        function setColor(bool){
+          	if(bool){
+            	colors = {
+              		'background':"#00FF2F2A",
+              		'border':"#006C00B9",
+              		'display':"none"
+           		}
+          	}
+          	else{
+            	colors = {
+            		'background':"#FF00002A",
+              		'border':"#BE0000B9",
+              		'display':"inline"
+            	}
+          	}
+			const passDontMatch = document.getElementById("pass-no-match")
+			passDontMatch.style.display = colors.display
+			password1.style.backgroundColor = colors.background
+			password1.style.borderColor =colors.border
+			password2.style.backgroundColor = colors.background
+			password2.style.borderColor = colors.border
+        }
+        // function to validaete form based on both passwords
+        function validateForm(){
+          	if(confirmPassword()){
+            	return true
+			}
+          	else{	
+				setColor(false)
+				password2.addEventListener('input',function(){
+					if(confirmPassword()){
+						setColor(true)
+					}
+					else{
+						setColor(false)
+					}
+				})		
+				return false
+			}
+        }
+
         showBtn = document.querySelectorAll('.show-password')
         showBtn.forEach((btn) => {
           btn.addEventListener('click',function(){
