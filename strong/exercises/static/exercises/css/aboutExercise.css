@@ -52,6 +52,7 @@
     padding-inline:1em ;
     padding-block: .5em;
 }
+
 #about,
 #history,
 #records{
@@ -128,6 +129,7 @@
 .exercise-card-table span{
     margin-right: 15px;
 }
+#custom-exercises-about,
 .not-performed{
     text-align: center;
 

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'exercises/css/aboutExercise.css' %}?{% now "U" %}">
+    <link rel="stylesheet" href="{% static 'exercises/css/aboutExercise.css' %}">
 {% endblock head %}
 
 {% block body %}
@@ -16,17 +16,23 @@
 
         <div id="about" class="selected-tab">
             <div class="body-wrap">
-                <div class="content-wrap">
-                    <div class="img-wrap">
-                        <img src="{{exercise.image_url}}" alt="">
+                {% if exercise.is_custom %}
+                    <div id="custom-exercises-about">
+                        <span>This is a custom excercise!</span>
                     </div>
-                    <div class="instructions">
-                        <h4 class="heading-2">Instructions</h4>
-                        {% for i in exercise.exerciseinstruction_set.all %}
-                            <p class="step-number"><span>{{i.step_number}}</span>{{i.description}}</p>
-                        {% endfor %}
+                {% else %}
+                    <div class="content-wrap">
+                        <div class="img-wrap">
+                            <img src="{{exercise.image_url}}" alt="">
+                        </div>
+                        <div class="instructions">
+                            <h4 class="heading-2">Instructions</h4>
+                            {% for i in exercise.exerciseinstruction_set.all %}
+                                <p class="step-number"><span>{{i.step_number}}</span>{{i.description}}</p>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
 
@@ -41,5 +47,5 @@
         </div>
     </div>
 
-    <script src="{% static 'exercises/js/exercises.js' %}?{% now "U" %}"></script>
+    <script src="{% static 'exercises/js/exercises.js' %}"></script>
 {% endblock body %}

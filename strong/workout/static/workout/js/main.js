@@ -49,6 +49,7 @@ function addSet(table,i){
 }
 
 
+// display selected exercises in SelectedExerciseDiv
 function addSelectedExercise(){
     {
         // removes all the children before adding selected exercise to selectedExerciseDiv

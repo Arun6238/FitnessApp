@@ -77,6 +77,9 @@ class Exercise(models.Model):
     category = models.CharField(max_length=100,choices= CATEGORY_CHOICES,null=True,blank=True)
     image_url = models.URLField(null=True,blank=True)
 
+    is_custom = models.BooleanField(default=False, db_index=True)
+    user = models.ForeignKey(User, null=True,blank=True,db_index=True , on_delete=models.CASCADE)
+
     def __str__(self) :
         return self.name
 

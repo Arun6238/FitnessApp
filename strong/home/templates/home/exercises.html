@@ -10,13 +10,25 @@
     <div class="exercise-wrap" id="exercise-wrap">
         <h1>Exercises</h1>
         {% for exercise in exercises %}
-            <div class="exercise-container" data-url="{% url 'about-exercise' exercise.id %}">
-                <img src="{{ exercise.image_url }}" alt="{{exercise.name}} logo" height="50px" width="50px">
-                <div class="exercise-inner-container">
-                    <h4>{{exercise.name}}</h4>
-                    <p>{{exercise.body_part}}</p>
+            {% if exercise.is_custom %}
+                <div class="exercise-container" data-url="{% url 'about-exercise' exercise.id %}">
+                    <div class="custom-excercise-logo">
+                        <span>{{exercise.name | first}}</span>
+                    </div>
+                    <div class="exercise-inner-container">
+                        <h4>{{exercise.name}}</h4>
+                        <p>{{exercise.body_part}}</p>
+                    </div>
                 </div>
-            </div>
+            {% else %}
+                <div class="exercise-container" data-url="{% url 'about-exercise' exercise.id %}">
+                    <img src="{{ exercise.image_url }}" alt="{{exercise.name}} logo" height="50px" width="50px">
+                    <div class="exercise-inner-container">
+                        <h4>{{exercise.name}}</h4>
+                        <p>{{exercise.body_part}}</p>
+                    </div>
+                </div>
+            {% endif %}
         {% endfor %}
         <script src="{% static 'home/js/exercises.js' %}"></script>
     </div>

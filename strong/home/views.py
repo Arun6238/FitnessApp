@@ -5,11 +5,14 @@ from workout.views import get_response_dict
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
 
+from django.db.models import Q
+
 from django.core.paginator import Paginator ,EmptyPage, PageNotAnInteger
 
 @login_required(login_url='login')
 def exercisePage(request):
-    exercises = Exercise.objects.all().order_by('id').values('id','name','body_part','image_url')
+    user = request.user
+    exercises = Exercise.objects.filter(Q(is_custom =False) | Q(is_custom=True,user =user)).order_by('name').values('id','name','body_part','image_url','is_custom')
     paginator = Paginator(exercises, 10) # Show 10 exercises per page
 
     if 'HTTP_ACCEPT' in request.META and 'application/json' in request.META['HTTP_ACCEPT']:

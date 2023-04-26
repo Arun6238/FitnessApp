@@ -42,12 +42,143 @@
 }
 
 .select-exercise-wrap{
-    padding: 1em;
+    padding: 0 1em;
     display: none;
 
 }
+#add-exercise-controls{
+    margin-top:0 ;
+}
 .close-add-exercises{
-    display: block;
-    margin-bottom:2em ;
+    font-size: 15px;
     cursor: pointer;
+}
+.filter{
+    display: flex;
+    gap: 1em;
+}
+.filter span{
+    padding: 1em .5em;
+    cursor: pointer;
+}
+#search-input-container{
+    position: relative;
+    display: none;
+}
+#search-input-icon{
+    color: slategray;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left:10px;
+}
+#search-input{
+    border-radius: 4px;
+    width: calc(100% - 3.5em);
+    background-color: rgb(231, 231, 231);
+    border:transparent;
+    padding:1em 1em 1em 2.5em;
+    font-size: 15px;
+    max-width: 100%;
+}
+#search-input:focus{
+    outline: none;
+}
+.custom-excercise-logo{
+    position: relative;
+    width: 50px;
+    height:50px;
+    font-size: 20px;
+    font-weight: 600;
+    color: grey;
+    background-color: #d8d8d8aa;
+    border-radius: 50%;
+}
+.custom-excercise-logo span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+/* filter styles */
+
+#filter-control-buttons{
+    padding:1em;
+    display: none;
+}
+#filter-control-buttons button{
+    border: transparent;
+    padding: .6em 1.2em;
+    color: black;
+    background-color: aquamarine;
+    /* font-weight: 600; */
+    font-size: 15px;
+    border-radius: 10px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.selected-filter{
+    background-color:rgb(114, 107, 255) !important;
+    color: white !important;
+}
+#filter-control-buttons button:hover{
+    background-color: rgb(92, 205, 168);
+}
+#filter-control-back-button{
+    margin-bottom: 2em;
+}
+#filter-control-back-button span{
+    padding:.8em;
+    padding-left: 0;
+    cursor: pointer;
+}
+
+/* -------- */
+
+#applied-filters span{
+    background-color: rgb(114, 107, 255);
+    padding: .5em .7em ;
+    border-radius: 20px;
+    display: inline-block;
+    color: white;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+#applied-filters i{
+    border-radius: 50%;
+    color: rgb(114, 107, 255) ;
+    background-color: white;
+    font-size: 13px;
+    padding: .3em;
+    width: 12px;
+    height: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+    cursor: pointer;
+}
+.close-filter-2{
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+
+    width: 50px;
+    height: 30px;
+
+    font-size: 26px;
+    border-radius: 50%;
+    color: white;
+    background-color: rgb(0, 193, 67);
+}
+
+.close-filter-2 i{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    transform: translateX(-50%) translateY(-50%);
+}
+
+#create-custom-exercise{
+    padding: 1em;
 }

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head %}
-    <link rel="stylesheet" href="{% static 'workout/css/createTemplate.css' %}?3">
+    <link rel="stylesheet" href="{% static 'workout/css/createTemplate.css' %}">
     <link rel="stylesheet" href="{% static 'workout/css/selectedExercise.css' %}">
 {% endblock head %}
 
@@ -17,15 +17,80 @@
             
         </div>
         <button id="addExercise">ADD EXERCISE</button>
+
     </div>
+    <div id="filter-control-buttons">
+        <div id="filter-control-back-button">
+            <span class="close-filter">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </span>
+            <span class="close-filter close-filter-2">
+                <i class="fa fa-check" aria-hidden="true"></i>
+            </span>
+        </div>
+        <h2 id="filter-title">Filter(15)</h2>
+        <div id="body-parts">
+            <h4>Body part</h4>
+            <button >Core</button>
+            <button >Arms</button>
+            <button >Back</button>
+            <button >Chest</button>
+            <button >Legs</button>
+            <button >Other</button>
+            <button >Olympic</button>
+            <button >Full body</button>
+            <button >Cardio</button>
+        </div>
+
+        <div id="category">
+            <h4>Category</h4>
+            <button >Barbell</button>
+            <button >Dumbbell</button>
+            <button >Machine/other</button>
+            <button >Weighted bodyweight</button>
+            <button >Assisted body</button>
+            <button >Reps only</button>
+            <button >Cardio exercise</button>
+            <button >Duration</button>
+        </div>
+    </div>
+
     <div class="select-exercise-wrap" data-url = "{% url 'new-template' %}">
-        <span class="close-add-exercises"><i class="fas fa-x"></i></span>
+        <div id="add-exercise-controls"> 
+            <table style="border-spacing:15px; margin-top:0;">
+                <tr>
+                    <td>
+                        <span class="close-add-exercises"><i class="fas fa-x"></i></span>
+                    </td>
+                    <td style="width:100%">
+                        <span id="search-input-container"><input id="search-input" type="text"><i id="search-input-icon" class="fas fa-search"></i></span>
+                    </td>
+                    <td>
+                        <span class="filter">
+                            <span id="search-button">
+                                <i class="fas fa-search"></i>
+                            </span>
+                            <span id="filter-button">
+                               <i class="fa-solid fa-filter"></i>
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+        {% comment %} div to show applied filters {% endcomment %}
+        <div id="applied-filters">
+
+        </div>
         <h2>Add Exercises</h2>
         <div class="all-exercises">
 
         </div>
         <button class="exercise-select"><i class="fa fa-check"></i></button>
+{% comment %}  {% endcomment %}
     </div>
+
     <script src="{% static 'workout/js/main.js' %}"></script>
     <script src="{% static 'workout/js/showExercises.js' %}"></script>
     <script src="{% static 'workout/js/saveTemplate.js' %}"></script>

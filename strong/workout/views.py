@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from home.models import WorkoutTemplate,WorkoutExercise,Exercise,WorkoutSession,WorkoutSessionExercise,Set
 from django.db import transaction
+from django.db.models import Q
 from django.http import JsonResponse
 import json
 from django.shortcuts import get_object_or_404
@@ -68,7 +69,8 @@ def newTemplate(request):
 @login_required(login_url='login')
 def showAllExercises(request):
     data = {}
-    exercises  = Exercise.objects.all().values()
+    user = request.user
+    exercises  = Exercise.objects.filter(Q(is_custom= False) | Q(is_custom= True,user= user)).values('id','name','body_part','category','image_url','is_custom').order_by('name')
     data['exercises'] = list(exercises)
     return JsonResponse(data)
 
