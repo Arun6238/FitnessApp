@@ -1,35 +1,129 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'home/css/exercises.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/exercises.css' %}?{% now "U" %}">
 {% endblock head %}
 
 {% include 'navbar.html' %}
 
 {% block body %}
-    <div class="exercise-wrap" id="exercise-wrap">
-        <h1>Exercises</h1>
-        {% for exercise in exercises %}
-            {% if exercise.is_custom %}
-                <div class="exercise-container" data-url="{% url 'about-exercise' exercise.id %}">
-                    <div class="custom-excercise-logo">
-                        <span>{{exercise.name | first}}</span>
-                    </div>
-                    <div class="exercise-inner-container">
-                        <h4>{{exercise.name}}</h4>
-                        <p>{{exercise.body_part}}</p>
-                    </div>
+    <div class="exercise-page-wrap">
+        <div id="add-exercise-controls"> 
+            <table id="exercise-page-filter-table">
+                <tr>
+                    <td style="width:100%">
+                        <span id="search-input-container"><input id="search-input" type="text"><i id="search-input-icon" class="fas fa-search"></i></span>
+                    </td>
+                    <td>
+                        <span id="filter-button">
+                            <i class="fa-solid fa-filter"></i>
+                        </span>
+                    </td>
+                    <td>
+                        <span id="create-custom-exercise">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <div id="filter-control-buttons">
+                <div id="filter-control-back-button">
+                    <span class="close-filter">
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                    </span>
+                    <span id="close-filter-2" class="close-filter">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                    </span>
                 </div>
-            {% else %}
-                <div class="exercise-container" data-url="{% url 'about-exercise' exercise.id %}">
-                    <img src="{{ exercise.image_url }}" alt="{{exercise.name}} logo" height="50px" width="50px">
-                    <div class="exercise-inner-container">
-                        <h4>{{exercise.name}}</h4>
-                        <p>{{exercise.body_part}}</p>
-                    </div>
+                <h2 id="filter-title">Filter()</h2>
+                <div id="body-parts">
+                    <h4>Body part</h4>
+                    <button >Core</button>
+                    <button >Arms</button>
+                    <button >Back</button>
+                    <button >Chest</button>
+                    <button >Legs</button>
+                    <button >Other</button>
+                    <button >Olympic</button>
+                    <button >Full body</button>
+                    <button >Cardio</button>
                 </div>
-            {% endif %}
-        {% endfor %}
-        <script src="{% static 'home/js/exercises.js' %}"></script>
+        
+                <div id="category">
+                    <h4>Category</h4>
+                    <button >Barbell</button>
+                    <button >Dumbbell</button>
+                    <button >Machine/other</button>
+                    <button >Weighted bodyweight</button>
+                    <button >Assisted body</button>
+                    <button >Reps only</button>
+                    <button >Cardio exercise</button>
+                    <button >Duration</button>
+                </div>
+            </div>
+        </div>
+        <form id="custom-exercise-form">
+            {% csrf_token %}
+            <h3><span><i id="custom-exercise-form-close" class="fa fa-x"></i></span>Create new exercise</h3>
+            <hr>
+            <table>
+                <tr>
+                    <td colspan=2>
+                        <input placeholder="Add name" type="text" id="custom-exercise-name" name="name" required>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label for="category">Category</label>
+                    </td>
+                    <td>
+                        <select type="text" id="category" name="category" required>
+                            <option value="">None</option>
+                            <option value="Barbell">Barbell</option>
+                            <option value="Dumbbell">Dumbbell</option>
+                            <option value="Machine/other">Machine/other</option>
+                            <option value="Weighted bodyweight">Weighted bodyweight</option>
+                            <option value="Assisted body">Assisted body</option>
+                            <option value="Reps only">Reps only</option>
+                            <option value="Cardio exercise">Cardio exercise</option>
+                            <option value="Duration">Duration</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="body-part">Body Part</label>
+                    </td>
+                    <td>
+                        <select id="body-part" name="body-part" required>
+                            <option value="">None</option>
+                            <option value="Core">Core</option>
+                            <option value="Arms">Arms</option>
+                            <option value="Back">Back</option>
+                            <option value="Chest">Chest</option>
+                            <option value="Legs">Legs</option>
+                            <option value="Shoulders">Shoulders</option>
+                            <option value="Other">Other</option>
+                            <option value="Olympic">Olympic</option>
+                            <option value="Full body">Full body</option>
+                            <option value="Cardio">Cardio</option>
+            
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button id="submit-new-exercise" class="submit-exercise">
+                <i class="fa fa-check" aria-hidden="true"></i>
+            </button>
+            <button id="submit-new-exercise2" class="submit-exercise">Create Exercise</button>
+          </form>
+        <div id="applied-filters">
+
+        </div>
+        <div id="exercise-wrap">
+            <h1>Exercises</h1>
+        </div>
+        <script src="{% static 'home/js/exercises.js' %}?{% now "U" %}"></script>
     </div>
 {% endblock body %}

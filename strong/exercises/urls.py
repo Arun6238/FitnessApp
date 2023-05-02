@@ -3,5 +3,6 @@ from .import views
 urlpatterns = [
     path('about-exercise/<str:id>',views.aboutExercise,name="about-exercise"),
     path('exercise-history/<str:id>',views.exercise_history,name='exercise-history'),
+    path('create-custome-exercise',views.createCustomeExercise,name="create-custome-exercise")
 
 ]

@@ -8,7 +8,6 @@ from workout.views import get_response_dict
 from django.contrib.auth.decorators import login_required
 
 
-
 # Create your views here.
 @login_required(login_url='login')
 def aboutExercise(request,id):
@@ -47,6 +46,25 @@ def exercise_history(request, id):
         raise Http404("Exercise history not found")
 
 
+@login_required(login_url='login')
+def createCustomeExercise(request):
+    user = request.user
+    if request.method == 'POST':
+        name = request.POST['name']
+        category = request.POST['category']
+        body_part = request.POST['body-part']
+
+        if name and category and body_part:
+            try:
+               Exercise.objects.create(name=name,user =user,category=category,body_part=body_part,is_custom = True)
+            except Exception as e:
+               return JsonResponse(get_response_dict('error','couldnt create new exercise')) 
+            
+            return JsonResponse(get_response_dict('success','data saved successfully'))
+        else:
+            return JsonResponse(get_response_dict('error','fill all the fields'))
+
+    return JsonResponse(get_response_dict('error','some thing went wrong'))
 def presonal_records(request):
     max_volume_workout = (
     WorkoutSession.objects

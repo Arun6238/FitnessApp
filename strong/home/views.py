@@ -9,37 +9,50 @@ from django.db.models import Q
 
 from django.core.paginator import Paginator ,EmptyPage, PageNotAnInteger
 
+# @login_required(login_url='login')
+# def exercisePage(request):
+#     user = request.user
+#     exercises = Exercise.objects.filter(Q(is_custom =False) | Q(is_custom=True,user =user)).order_by('name').values('id','name','body_part','image_url','is_custom')
+#     # paginator = Paginator(exercises, 10) # Show 10 exercises per page
+
+#     # check if the request is a ajax request
+#     if 'HTTP_ACCEPT' in request.META and 'application/json' in request.META['HTTP_ACCEPT']:
+#         page_number = request.GET.get('page')
+#         # try:
+#         #     page_obj = paginator.page(page_number)
+#         # except (PageNotAnInteger, EmptyPage):
+#         #     return JsonResponse(get_response_dict('error','Invalid page number', None))
+
+#         exercise_dict = list(page_obj)
+#         if not page_obj.has_next():
+#             data = {
+#                 'has_next': False,
+#                 'exercises':exercise_dict
+#             }
+#         else:
+#             data= {
+#                 'has_next': True,
+#                 'exercises':exercise_dict
+#                 }
+        
+#         return JsonResponse(get_response_dict('success','no message',data))
+#     page_number = 1
+#     page_obj = paginator.get_page(page_number)
+#     context = {'exercises': page_obj}
+
+#     return render(request,'home/exercises.html',context)
+
 @login_required(login_url='login')
 def exercisePage(request):
-    user = request.user
-    exercises = Exercise.objects.filter(Q(is_custom =False) | Q(is_custom=True,user =user)).order_by('name').values('id','name','body_part','image_url','is_custom')
-    paginator = Paginator(exercises, 10) # Show 10 exercises per page
-
+    # check if the request is a ajax request
     if 'HTTP_ACCEPT' in request.META and 'application/json' in request.META['HTTP_ACCEPT']:
-        page_number = request.GET.get('page')
-        try:
-            page_obj = paginator.page(page_number)
-        except (PageNotAnInteger, EmptyPage):
-            return JsonResponse(get_response_dict('error','Invalid page number', None))
+        user = request.user
+        exercises = Exercise.objects.filter(Q(is_custom =False) | Q(is_custom=True,user =user)).order_by('name').values('id','name','body_part','category','image_url','is_custom')
 
-        exercise_dict = list(page_obj)
-        if not page_obj.has_next():
-            data = {
-                'has_next': False,
-                'exercises':exercise_dict
-            }
-        else:
-            data= {
-                'has_next': True,
-                'exercises':exercise_dict
-                }
-        
-        return JsonResponse(get_response_dict('success','no message',data))
-    page_number = 1
-    page_obj = paginator.get_page(page_number)
-    context = {'exercises': page_obj}
+        return JsonResponse(get_response_dict('success','no message',{'exercises':list(exercises)}))
+    return render(request,'home/exercises.html')
 
-    return render(request,'home/exercises.html',context)
+
 
 @login_required(login_url='login')
 def measures(request):

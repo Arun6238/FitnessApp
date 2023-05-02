@@ -1,5 +1,6 @@
-.exercise-wrap{
+.exercise-page-wrap{
     padding:1em;
+    position: relative;
 }
 .exercise-container{
     display: flex;
@@ -34,3 +35,200 @@
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
 }
+.lazy-loading{
+    display: none;
+}
+.lazy-loaded{
+    display: block;
+}
+
+
+/* filter design */
+#create-custom-exercise,
+#filter-button{
+    width: 35px;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    padding-block:10px ;
+    cursor: pointer;
+}
+#filter-button{
+    margin-left: 10px;
+}
+#search-input-container{
+    position: relative;
+}
+#custom-exercise-name,
+#search-input-container input{
+    background-color: rgb(234, 234, 234);
+    outline: none;
+    border-color: transparent;
+    border-radius: 2px;
+    font-size: 15px;
+}
+#search-input-container input{
+    width: calc(100% - 50px);
+    padding:10px 10px 10px 40px;
+}
+#search-input-container i{
+    position: absolute;
+    left: 15px;
+    top: 50%;
+
+    color: slategray;
+    transform: translateY(-50%);
+}
+/* ends */
+
+/* filter styles */
+
+#filter-control-buttons{
+    padding:1em;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: inherit;
+    background-color: white;
+}
+#filter-control-buttons button{
+    border: transparent;
+    padding: .6em 1.2em;
+    color: black;
+    background-color: aquamarine;
+    /* font-weight: 600; */
+    font-size: 15px;
+    border-radius: 10px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+}
+.selected-filter{
+    background-color:rgb(114, 107, 255) !important;
+    color: white !important;
+}
+#filter-control-buttons button:hover{
+    background-color: rgb(92, 205, 168);
+}
+#filter-control-back-button{
+    margin-bottom: 2em;
+}
+#filter-control-back-button span{
+    padding:.8em;
+    padding-left: 0;
+    cursor: pointer;
+}
+#close-filter-2{
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+}
+/* submit exercise button */
+#submit-new-exercise{
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+}
+#submit-new-exercise,
+#close-filter-2{
+    background-color: #2fb52f;
+    border-radius: 50%;
+    color: wheat;
+    
+    width: 60px;
+    height: 60px;
+    padding:0 !important;
+}
+#submit-new-exercise i,
+#close-filter-2 i{
+    margin-left: 50%;
+    margin-top: 50%;
+
+    font-size: 28px;
+    transform: translate(-50%,-50%);
+}
+
+/* custome exercise design -------------------- */
+#custom-exercise-form{
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    bottom: 0;
+    background-color: white;
+    z-index:100;
+}
+#custom-exercise-form-close{
+    font-size: 14px;
+    margin-right:1em ;
+    padding:5px;
+    cursor: pointer;
+    float: right;
+}
+#submit-new-exercise2{
+    display: none;
+    padding: .8em 1.5em;  
+    border: transparent;
+    background-color: #32b1ff;
+    color: white;
+    font-size: 15px;
+    margin-top: 10px;
+}
+#submit-new-exercise,
+#submit-new-exercise2{
+    cursor: pointer;
+}
+#custom-exercise-form select{
+    font-size: 15px;
+    color: #525252;
+    text-align: right;
+    border: transparent;
+    background-color:inherit;
+}
+#custom-exercise-form select,
+#custom-exercise-name{
+    width: calc(100% - 1.6em);
+    padding: .8em;
+}
+#custom-exercise-form table{
+    width: 100%;
+}
+#custom-exercise-form td{
+    padding-block: 10px;
+}
+#applied-filters{
+    padding-block: 1em .5em ;
+}
+#applied-filters span{
+    background-color: rgb(114, 107, 255);
+    padding: .5em .7em ;
+    border-radius: 20px;
+    display: inline-block;
+    color: white;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+#applied-filters i{
+    border-radius: 50%;
+    color: rgb(114, 107, 255) ;
+    background-color: white;
+    font-size: 13px;
+    padding: .3em;
+    width: 12px;
+    height: 12px;
+    font-weight: bold;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+@media screen and (min-width: 500px) {
+    #submit-new-exercise{
+        display: none;
+    }
+    #submit-new-exercise2{
+        display: inline;
+    }
+  }
